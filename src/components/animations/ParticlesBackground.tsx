@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Lottie from 'lottie-react';
 import { useIsMobile, usePrefersReducedMotion } from '@/hooks';
+import { FallbackParticles } from '@/components/ui';
 
 // Simple particle animation data (inline to avoid external dependency)
 const particlesAnimationData = {
@@ -79,9 +80,9 @@ export default function ParticlesBackground({
     setIsMounted(true);
   }, []);
 
-  // Don't render on mobile or if user prefers reduced motion
+  // Return lightweight fallback on mobile or if user prefers reduced motion
   if (!isMounted || isMobile || prefersReducedMotion) {
-    return null;
+    return <FallbackParticles />;
   }
 
   return (

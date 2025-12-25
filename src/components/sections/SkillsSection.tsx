@@ -4,8 +4,9 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { skillsSectionStyles, skillsSectionAnimations, getProgressGradient } from '@/styles';
 import { skills, getSkillIcon, type Skill } from '@/logic';
+import { useIsMobile } from '@/hooks';
 
-function SkillCard({ skill, index }: { skill: Skill; index: number }) {
+function SkillCard({ skill, index, isMobile }: { skill: Skill; index: number; isMobile: boolean }) {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.2,
@@ -13,12 +14,15 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
 
   const iconData = getSkillIcon(skill.iconType);
 
+  // Simplified animation for mobile
+  const mobileHover = isMobile ? {} : skillsSectionAnimations.card.hover;
+
   return (
     <motion.div
       ref={ref}
       variants={skillsSectionAnimations.item}
       className={skillsSectionStyles.card.container}
-      whileHover={skillsSectionAnimations.card.hover}
+      whileHover={mobileHover}
       transition={skillsSectionAnimations.card.transition}
     >
       {/* Background glow on hover */}
@@ -74,6 +78,7 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
 }
 
 export default function SkillsSection() {
+  const isMobile = useIsMobile();
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -109,7 +114,7 @@ export default function SkillsSection() {
           animate={inView ? 'visible' : 'hidden'}
         >
           {skills.map((skill, index) => (
-            <SkillCard key={skill.name} skill={skill} index={index} />
+            <SkillCard key={skill.name} skill={skill} index={index} isMobile={isMobile} />
           ))}
         </motion.div>
       </div>

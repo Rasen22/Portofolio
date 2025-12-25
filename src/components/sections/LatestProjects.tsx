@@ -5,40 +5,50 @@ import { motion, useScroll } from 'framer-motion';
 import Link from 'next/link';
 import { latestProjectsStyles, latestProjectsInlineStyles, latestProjectsAnimations } from '@/styles';
 import { latestProjects, calculateCenterIndex, type LatestProject } from '@/logic';
+import { useIsMobile } from '@/hooks';
 
 function ProjectCard({
   project,
   index,
   isCenter,
+  isMobile,
 }: {
   project: LatestProject;
   index: number;
   isCenter: boolean;
+  isMobile: boolean;
 }) {
+  // Simplified animations for mobile
+  const cardAnimate = isMobile ? {} : latestProjectsAnimations.card.getAnimate(isCenter);
+  const cardHover = isMobile ? {} : latestProjectsAnimations.card.getHover(isCenter);
+  const kenBurnsAnimate = isMobile ? {} : latestProjectsAnimations.kenBurns.animate;
+
   return (
     <Link href={`/projects/${project.slug}`}>
       <motion.div
         className={`${latestProjectsStyles.card.container} ${isCenter ? 'z-10' : 'z-0'}`}
-        animate={latestProjectsAnimations.card.getAnimate(isCenter)}
-        whileHover={latestProjectsAnimations.card.getHover(isCenter)}
+        animate={cardAnimate}
+        whileHover={cardHover}
         transition={latestProjectsAnimations.card.transition}
-        style={latestProjectsInlineStyles.card.getBoxShadow(isCenter)}
+        style={isMobile ? {} : latestProjectsInlineStyles.card.getBoxShadow(isCenter)}
       >
-        {/* Border glow */}
-        <div
-          className={`${latestProjectsStyles.card.borderGlow.wrapper} ${
-            isCenter ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-          }`}
-          style={latestProjectsInlineStyles.card.borderGradient}
-        >
-          <div className={latestProjectsStyles.card.borderGlow.inner} />
-        </div>
+        {/* Border glow - hide on mobile */}
+        {!isMobile && (
+          <div
+            className={`${latestProjectsStyles.card.borderGlow.wrapper} ${
+              isCenter ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+            }`}
+            style={latestProjectsInlineStyles.card.borderGradient}
+          >
+            <div className={latestProjectsStyles.card.borderGlow.inner} />
+          </div>
+        )}
 
         {/* Image with Ken Burns effect */}
         <div className={latestProjectsStyles.card.imageWrapper}>
           <motion.div
             className={latestProjectsStyles.card.imageContainer}
-            animate={latestProjectsAnimations.kenBurns.animate}
+            animate={kenBurnsAnimate}
             transition={latestProjectsAnimations.kenBurns.transition}
           >
             <div className={latestProjectsStyles.card.imageOverlay.gradient} />
@@ -94,12 +104,16 @@ export default function LatestProjects() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [centerIndex, setCenterIndex] = useState(2);
   const [isDragging, setIsDragging] = useState(false);
+  const isMobile = useIsMobile();
 
   const { scrollXProgress } = useScroll({
     container: containerRef,
   });
 
   useEffect(() => {
+    // Skip scroll tracking on mobile for performance
+    if (isMobile) return;
+
     const container = containerRef.current;
     if (!container) return;
 
@@ -111,7 +125,7 @@ export default function LatestProjects() {
 
     container.addEventListener('scroll', handleScroll);
     return () => container.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMobile]);
 
   return (
     <section className={latestProjectsStyles.section} id="projects">
@@ -183,6 +197,7 @@ export default function LatestProjects() {
                 project={project}
                 index={index}
                 isCenter={index === centerIndex}
+                isMobile={isMobile}
               />
             </div>
           ))}

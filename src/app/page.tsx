@@ -3,15 +3,20 @@
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { homeStyles } from '@/styles';
+import { useIsMobile } from '@/hooks';
+import { 
+  SkeletonModel, 
+  SkeletonParticles, 
+  SkeletonSkills, 
+  SkeletonProjects,
+  FallbackHeroImage,
+  FallbackParticles 
+} from '@/components/ui';
 
-// Lazy load heavy components
+// Lazy load heavy components with proper skeletons
 const Hero3DModel = dynamic(() => import('@/components/hero/Hero3DModel'), {
   ssr: false,
-  loading: () => (
-    <div className={homeStyles.loadingContainer}>
-      <div className={homeStyles.loadingSpinner} />
-    </div>
-  ),
+  loading: () => <SkeletonModel />,
 });
 
 const HeroContent = dynamic(() => import('@/components/hero/HeroContent'), {
@@ -20,26 +25,53 @@ const HeroContent = dynamic(() => import('@/components/hero/HeroContent'), {
 
 const SkillsSection = dynamic(
   () => import('@/components/sections/SkillsSection'),
-  { ssr: false }
+  { 
+    ssr: false,
+    loading: () => (
+      <section className="py-20 px-4">
+        <div className="container mx-auto">
+          <SkeletonSkills />
+        </div>
+      </section>
+    ),
+  }
 );
 
 const LatestProjects = dynamic(
   () => import('@/components/sections/LatestProjects'),
-  { ssr: false }
+  { 
+    ssr: false,
+    loading: () => (
+      <section className="py-20 px-4">
+        <div className="container mx-auto">
+          <SkeletonProjects />
+        </div>
+      </section>
+    ),
+  }
 );
 
 const ParticlesBackground = dynamic(
   () => import('@/components/animations/ParticlesBackground'),
-  { ssr: false }
+  { 
+    ssr: false,
+    loading: () => <SkeletonParticles />,
+  }
 );
 
 export default function HomePage() {
+  const isMobile = useIsMobile();
+
   return (
     <div className={homeStyles.container}>
       {/* Hero Section */}
       <section id="home" className={homeStyles.hero.section}>
-        {/* Background Effects */}
-        <ParticlesBackground className={homeStyles.particles} />
+        {/* Background Effects - Use fallback on mobile */}
+        {isMobile ? (
+          <FallbackParticles />
+        ) : (
+          <ParticlesBackground className={homeStyles.particles} />
+        )}
         
         {/* Gradient Orbs */}
         <div className={homeStyles.hero.gradientOrbCyan} />
@@ -58,14 +90,14 @@ export default function HomePage() {
               <HeroContent />
             </motion.div>
 
-            {/* Right: 3D Model - Shows first on mobile */}
+            {/* Right: 3D Model - Use fallback on mobile */}
             <motion.div
               className={homeStyles.hero.rightContent}
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <Hero3DModel />
+              {isMobile ? <FallbackHeroImage /> : <Hero3DModel />}
             </motion.div>
           </div>
         </div>

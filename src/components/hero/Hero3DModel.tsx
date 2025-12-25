@@ -4,6 +4,8 @@ import { useRef, useEffect, useState, useMemo } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { hero3DModelStyles, hero3DModelInlineStyles, hero3DModelColors } from '@/styles';
 import { generateParticles, orbitingRings, springConfig, mouseTransformConfig, type ParticleConfig } from '@/logic';
+import { useIsMobile } from '@/hooks';
+import { FallbackHeroImage } from '@/components/ui';
 
 // Floating Particle Component
 function FloatingParticle({ delay, size, x, y, colorType }: { delay: number; size: number; x: number; y: number; colorType: 'cyan' | 'purple' }) {
@@ -62,6 +64,7 @@ function OrbitingRing({ size, duration, delay, colorType }: { size: number; dura
 export default function Hero3DModel() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useIsMobile();
   
   // Mouse tracking for 3D effect
   const mouseX = useMotionValue(0);
@@ -72,6 +75,9 @@ export default function Hero3DModel() {
   const rotateY = useSpring(useTransform(mouseX, mouseTransformConfig.input, mouseTransformConfig.outputX), springConfig);
 
   useEffect(() => {
+    // Skip mouse tracking on mobile
+    if (isMobile) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
@@ -85,10 +91,15 @@ export default function Hero3DModel() {
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isMobile]);
 
-  // Generate particles using imported function
-  const particles = useMemo(() => generateParticles(30), []);
+  // Generate fewer particles on mobile for performance
+  const particles = useMemo(() => generateParticles(isMobile ? 10 : 30), [isMobile]);
+
+  // Return lightweight fallback on mobile
+  if (isMobile) {
+    return <FallbackHeroImage />;
+  }
 
   return (
     <div
