@@ -1,0 +1,198 @@
+@import url('https://api.fontshare.com/v2/css?f[]=clash-grotesk@200,300,400,500,600,700&f[]=satoshi@300,400,500,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-clash: 'Clash Grotesk', sans-serif;
+    --font-satoshi: 'Satoshi', sans-serif;
+    --background: #0A0A0A;
+    --foreground: #FFFFFF;
+    --cyan-primary: #00F3FF;
+    --purple-primary: #A855F7;
+  }
+
+  html {
+    color-scheme: dark;
+    background-color: #0A0A0A;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-satoshi antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0A0A0A;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00F3FF 0%, #A855F7 100%);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #00D4E4 0%, #9333EA 100%);
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgba(0, 243, 255, 0.3);
+    color: #FFFFFF;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply relative bg-white/5 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden;
+  }
+
+  .glass-card::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent;
+  }
+
+  .gradient-border {
+    @apply relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-xl p-[1px];
+    background: linear-gradient(135deg, #00F3FF 0%, #A855F7 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4), 0 0 40px rgba(0, 243, 255, 0.2);
+  }
+
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.2);
+  }
+
+  .glow-gradient {
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3), 0 0 40px rgba(168, 85, 247, 0.3);
+  }
+
+  /* Animated gradient button */
+  .btn-gradient {
+    @apply relative px-6 py-3 rounded-lg font-medium overflow-hidden transition-all duration-300;
+    background: linear-gradient(135deg, #00F3FF 0%, #A855F7 100%);
+  }
+
+  .btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3), 0 10px 30px rgba(168, 85, 247, 0.3);
+  }
+
+  .btn-gradient::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(135deg, #A855F7 0%, #00F3FF 100%);
+  }
+
+  .btn-gradient:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Tech chip styles */
+  .chip {
+    @apply px-3 py-1 rounded-full text-xs font-medium border;
+  }
+
+  .chip-cyan {
+    @apply bg-cyan-400/10 border-cyan-400/30 text-cyan-400;
+  }
+
+  .chip-purple {
+    @apply bg-purple-500/10 border-purple-500/30 text-purple-400;
+  }
+
+  .chip-gradient {
+    @apply bg-gradient-to-r from-cyan-400/10 to-purple-500/10 border-white/10 text-white;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Locomotive scroll container */
+  .has-scroll-smooth {
+    overflow: hidden;
+  }
+
+  .has-scroll-smooth body {
+    overflow: hidden;
+  }
+
+  [data-scroll-container] {
+    min-height: 100vh;
+  }
+
+  /* Parallax utilities */
+  .parallax-slow {
+    will-change: transform;
+  }
+
+  .parallax-fast {
+    will-change: transform;
+  }
+
+  /* Animation delays */
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+
+  .animation-delay-700 {
+    animation-delay: 700ms;
+  }
+
+  .animation-delay-1000 {
+    animation-delay: 1000ms;
+  }
+
+  /* Hide scrollbar utility */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Focus visible styling */
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+}
