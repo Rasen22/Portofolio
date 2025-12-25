@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import Lottie from 'lottie-react';
-import { useIsMobile, usePrefersReducedMotion } from '@/hooks';
+import { useEffect, useState, useRef } from 'react';
+import Lottie, { LottieRefCurrentProps } from 'lottie-react';
+import { useIsMobile, usePrefersReducedMotion, useTabVisibility } from '@/hooks';
 import { FallbackParticles } from '@/components/ui';
 
 // Simple particle animation data (inline to avoid external dependency)
@@ -73,12 +73,25 @@ export default function ParticlesBackground({
   className,
 }: ParticlesBackgroundProps) {
   const [isMounted, setIsMounted] = useState(false);
+  const lottieRef = useRef<LottieRefCurrentProps>(null);
   const isMobile = useIsMobile();
   const prefersReducedMotion = usePrefersReducedMotion();
+  const isTabVisible = useTabVisibility();
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // Pause/resume Lottie animation based on tab visibility
+  useEffect(() => {
+    if (!lottieRef.current) return;
+    
+    if (isTabVisible && !prefersReducedMotion) {
+      lottieRef.current.play();
+    } else {
+      lottieRef.current.pause();
+    }
+  }, [isTabVisible, prefersReducedMotion]);
 
   // Return lightweight fallback on mobile or if user prefers reduced motion
   if (!isMounted || isMobile || prefersReducedMotion) {
@@ -91,9 +104,10 @@ export default function ParticlesBackground({
       aria-hidden="true"
     >
       <Lottie
+        lottieRef={lottieRef}
         animationData={particlesAnimationData}
         loop={true}
-        autoplay={true}
+        autoplay={isTabVisible}
         style={{
           width: '100%',
           height: '100%',
@@ -101,9 +115,21 @@ export default function ParticlesBackground({
         }}
       />
       
-      {/* Additional gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float animation-delay-1000" />
+      {/* Additional gradient orbs - Use CSS transforms for animation */}
+      <div 
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl"
+        style={{
+          animation: isTabVisible ? 'float 6s ease-in-out infinite' : 'none',
+          willChange: 'transform',
+        }}
+      />
+      <div 
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+        style={{
+          animation: isTabVisible ? 'float 6s ease-in-out infinite 1s' : 'none',
+          willChange: 'transform',
+        }}
+      />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-cyan-400/5 via-purple-500/5 to-transparent rounded-full" />
     </div>
   );

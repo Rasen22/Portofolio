@@ -3,12 +3,14 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { customCursorStyles, customCursorInlineStyles, customCursorAnimations } from '@/styles';
+import { useTabVisibility } from '@/hooks';
 
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
+  const isTabVisible = useTabVisibility();
 
   useEffect(() => {
     // Check if mobile
@@ -20,8 +22,11 @@ export default function CustomCursor() {
     window.addEventListener('resize', checkMobile);
 
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-      setIsVisible(true);
+      // Skip mouse tracking when tab is not visible
+      if (!document.hidden) {
+        setMousePosition({ x: e.clientX, y: e.clientY });
+        setIsVisible(true);
+      }
     };
 
     const handleMouseLeave = () => {
@@ -29,7 +34,9 @@ export default function CustomCursor() {
     };
 
     const handleMouseEnter = () => {
-      setIsVisible(true);
+      if (!document.hidden) {
+        setIsVisible(true);
+      }
     };
 
     // Add hover detection for interactive elements
@@ -45,7 +52,7 @@ export default function CustomCursor() {
     };
 
     if (!isMobile) {
-      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
       document.body.addEventListener('mouseleave', handleMouseLeave);
       document.body.addEventListener('mouseenter', handleMouseEnter);
       
@@ -69,29 +76,35 @@ export default function CustomCursor() {
     };
   }, [isMobile]);
 
-  if (isMobile) return null;
+  // Hide cursor when tab is not visible
+  if (isMobile || !isTabVisible) return null;
 
   return (
     <AnimatePresence>
       {isVisible && (
         <>
-          {/* Main cursor */}
+          {/* Main cursor - Uses CSS transforms */}
           <motion.div
             className={customCursorStyles.mainCursor}
+            style={{ willChange: 'transform' }}
             animate={customCursorAnimations.main.getAnimate(mousePosition, isHovering)}
             transition={customCursorAnimations.main.transition}
           >
             <motion.div
               className={customCursorStyles.cursorRing}
+              style={{
+                ...customCursorInlineStyles.ring.getStyle(isHovering),
+                willChange: 'transform, opacity',
+              }}
               animate={customCursorAnimations.ring.getAnimate(isHovering)}
-              style={customCursorInlineStyles.ring.getStyle(isHovering)}
               transition={customCursorAnimations.ring.transition}
             />
           </motion.div>
 
-          {/* Trailing dot */}
+          {/* Trailing dot - Uses CSS transforms */}
           <motion.div
             className={customCursorStyles.trailingDot}
+            style={{ willChange: 'transform, opacity' }}
             animate={customCursorAnimations.trail.getAnimate(mousePosition, isHovering)}
             transition={customCursorAnimations.trail.transition}
           />

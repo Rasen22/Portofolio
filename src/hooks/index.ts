@@ -22,5 +22,7 @@ export {
   useMousePosition,
   useScrollPosition,
   useScrollDirection,
+  useTabVisibility,
+  useAnimationState,
 } from './useMediaQuery';
 export { useScrollSpy, useInViewport } from './useScrollSpy';

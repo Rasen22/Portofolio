@@ -1,15 +1,40 @@
 'use client';
 
 import { useRef, useEffect, useState, useMemo } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useAnimationControls } from 'framer-motion';
 import { hero3DModelStyles, hero3DModelInlineStyles, hero3DModelColors } from '@/styles';
 import { generateParticles, orbitingRings, springConfig, mouseTransformConfig, type ParticleConfig } from '@/logic';
-import { useIsMobile } from '@/hooks';
+import { useIsMobile, useAnimationState } from '@/hooks';
 import { FallbackHeroImage } from '@/components/ui';
 
-// Floating Particle Component
-function FloatingParticle({ delay, size, x, y, colorType }: { delay: number; size: number; x: number; y: number; colorType: 'cyan' | 'purple' }) {
+// Maximum particle count for performance (<50)
+const MAX_PARTICLES = 25;
+const MOBILE_PARTICLES = 8;
+
+// Optimized Floating Particle Component - Uses CSS transforms (scale/opacity)
+function FloatingParticle({ 
+  delay, 
+  size, 
+  x, 
+  y, 
+  colorType,
+  shouldAnimate 
+}: ParticleConfig & { shouldAnimate: boolean }) {
   const color = colorType === 'cyan' ? hero3DModelColors.cyan : hero3DModelColors.purple;
+  const controls = useAnimationControls();
+
+  useEffect(() => {
+    if (shouldAnimate) {
+      controls.start({
+        opacity: [0.2, 0.8, 0.2],
+        scale: [1, 1.5, 1],
+        y: [0, -30, 0],
+      });
+    } else {
+      controls.stop();
+    }
+  }, [shouldAnimate, controls]);
+
   return (
     <motion.div
       className={hero3DModelStyles.floatingParticle}
@@ -19,13 +44,9 @@ function FloatingParticle({ delay, size, x, y, colorType }: { delay: number; siz
         left: `${x}%`,
         top: `${y}%`,
         background: color,
+        willChange: 'transform, opacity',
       }}
-      animate={{
-        y: [0, -30, 0],
-        x: [0, Math.random() * 20 - 10, 0],
-        opacity: [0.2, 0.8, 0.2],
-        scale: [1, 1.5, 1],
-      }}
+      animate={controls}
       transition={{
         duration: 3 + Math.random() * 2,
         repeat: Infinity,
@@ -36,9 +57,34 @@ function FloatingParticle({ delay, size, x, y, colorType }: { delay: number; siz
   );
 }
 
-// Orbiting Ring Component
-function OrbitingRing({ size, duration, delay, colorType }: { size: number; duration: number; delay: number; colorType: 'cyan' | 'purple' }) {
+// Optimized Orbiting Ring Component - Uses CSS transforms (rotate/scale)
+function OrbitingRing({ 
+  size, 
+  duration, 
+  delay, 
+  colorType,
+  shouldAnimate 
+}: { 
+  size: number; 
+  duration: number; 
+  delay: number; 
+  colorType: 'cyan' | 'purple';
+  shouldAnimate: boolean;
+}) {
   const color = colorType === 'cyan' ? hero3DModelColors.cyan : hero3DModelColors.purple;
+  const controls = useAnimationControls();
+
+  useEffect(() => {
+    if (shouldAnimate) {
+      controls.start({
+        rotate: 360,
+        scale: [1, 1.05, 1],
+      });
+    } else {
+      controls.stop();
+    }
+  }, [shouldAnimate, controls]);
+
   return (
     <motion.div
       className={hero3DModelStyles.orbitingRing}
@@ -47,11 +93,9 @@ function OrbitingRing({ size, duration, delay, colorType }: { size: number; dura
         height: size,
         borderColor: color,
         opacity: 0.3,
+        willChange: 'transform',
       }}
-      animate={{
-        rotate: 360,
-        scale: [1, 1.05, 1],
-      }}
+      animate={controls}
       transition={{
         rotate: { duration, repeat: Infinity, ease: 'linear', delay },
         scale: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
@@ -65,6 +109,11 @@ export default function Hero3DModel() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const isMobile = useIsMobile();
+  const { shouldAnimate, isTabVisible } = useAnimationState();
+  
+  // Animation controls for main animations
+  const glowControls = useAnimationControls();
+  const coreControls = useAnimationControls();
   
   // Mouse tracking for 3D effect
   const mouseX = useMotionValue(0);
@@ -74,9 +123,26 @@ export default function Hero3DModel() {
   const rotateX = useSpring(useTransform(mouseY, mouseTransformConfig.input, mouseTransformConfig.outputY), springConfig);
   const rotateY = useSpring(useTransform(mouseX, mouseTransformConfig.input, mouseTransformConfig.outputX), springConfig);
 
+  // Handle tab visibility - pause/resume animations
   useEffect(() => {
-    // Skip mouse tracking on mobile
-    if (isMobile) return;
+    if (shouldAnimate) {
+      glowControls.start({
+        scale: [1, 1.1, 1],
+        opacity: [0.5, 0.8, 0.5],
+      });
+      coreControls.start({
+        scale: [1, 1.2, 1],
+        opacity: [0.5, 0.8, 0.5],
+      });
+    } else {
+      glowControls.stop();
+      coreControls.stop();
+    }
+  }, [shouldAnimate, glowControls, coreControls]);
+
+  useEffect(() => {
+    // Skip mouse tracking on mobile or when tab is not visible
+    if (isMobile || !isTabVisible) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       if (containerRef.current) {
@@ -89,12 +155,15 @@ export default function Hero3DModel() {
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY, isMobile]);
+  }, [mouseX, mouseY, isMobile, isTabVisible]);
 
-  // Generate fewer particles on mobile for performance
-  const particles = useMemo(() => generateParticles(isMobile ? 10 : 30), [isMobile]);
+  // Generate particles with strict limit (<50, using 25 max)
+  const particles = useMemo(() => {
+    const count = isMobile ? MOBILE_PARTICLES : MAX_PARTICLES;
+    return generateParticles(count);
+  }, [isMobile]);
 
   // Return lightweight fallback on mobile
   if (isMobile) {
@@ -113,6 +182,7 @@ export default function Hero3DModel() {
         style={{
           rotateX,
           rotateY,
+          willChange: 'transform',
           ...hero3DModelInlineStyles.sphereContainer,
         }}
         onHoverStart={() => setIsHovered(true)}
@@ -121,11 +191,11 @@ export default function Hero3DModel() {
         {/* Outer Glow Ring */}
         <motion.div
           className={hero3DModelStyles.outerGlow}
-          style={hero3DModelInlineStyles.outerGlow}
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.5, 0.8, 0.5],
+          style={{
+            ...hero3DModelInlineStyles.outerGlow,
+            willChange: 'transform, opacity',
           }}
+          animate={glowControls}
           transition={{ duration: 3, repeat: Infinity }}
         />
 
@@ -138,6 +208,7 @@ export default function Hero3DModel() {
               duration={ring.duration}
               delay={ring.delay}
               colorType={ring.colorType}
+              shouldAnimate={shouldAnimate}
             />
           ))}
         </div>
@@ -145,21 +216,24 @@ export default function Hero3DModel() {
         {/* Main Glowing Sphere */}
         <motion.div
           className={hero3DModelStyles.mainSphere}
-          animate={{
+          animate={shouldAnimate ? {
             boxShadow: isHovered
               ? hero3DModelInlineStyles.boxShadow.hovered
               : hero3DModelInlineStyles.boxShadow.default,
-          }}
+          } : {}}
           transition={{ duration: 2, repeat: Infinity }}
           whileHover={{ scale: 1.05 }}
-          style={hero3DModelInlineStyles.mainSphere.base}
+          style={{
+            ...hero3DModelInlineStyles.mainSphere.base,
+            willChange: 'transform, box-shadow',
+          }}
         >
           {/* Inner Gradient Animation */}
           <motion.div
             className={hero3DModelStyles.innerGradient}
             style={hero3DModelInlineStyles.innerGradient}
           >
-            {/* Animated Mesh Lines */}
+            {/* Animated Mesh Lines - Reduced count for performance */}
             <svg className={hero3DModelStyles.svgContainer} viewBox="0 0 200 200">
               <defs>
                 <linearGradient id="meshGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -167,35 +241,35 @@ export default function Hero3DModel() {
                   <stop offset="100%" stopColor={hero3DModelColors.purple} stopOpacity="0.5" />
                 </linearGradient>
               </defs>
-              {/* Horizontal lines */}
-              {[...Array(8)].map((_, i) => (
+              {/* Horizontal lines - reduced from 8 to 6 */}
+              {[...Array(6)].map((_, i) => (
                 <motion.ellipse
                   key={`h-${i}`}
                   cx="100"
                   cy="100"
-                  rx={80 - i * 2}
-                  ry={20 + i * 8}
+                  rx={80 - i * 3}
+                  ry={20 + i * 10}
                   fill="none"
                   stroke="url(#meshGradient)"
                   strokeWidth="0.5"
                   initial={{ opacity: 0.3 }}
-                  animate={{ opacity: [0.2, 0.5, 0.2] }}
+                  animate={shouldAnimate ? { opacity: [0.2, 0.5, 0.2] } : { opacity: 0.3 }}
                   transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
                 />
               ))}
-              {/* Vertical lines */}
-              {[...Array(8)].map((_, i) => (
+              {/* Vertical lines - reduced from 8 to 6 */}
+              {[...Array(6)].map((_, i) => (
                 <motion.ellipse
                   key={`v-${i}`}
                   cx="100"
                   cy="100"
-                  rx={20 + i * 8}
-                  ry={80 - i * 2}
+                  rx={20 + i * 10}
+                  ry={80 - i * 3}
                   fill="none"
                   stroke="url(#meshGradient)"
                   strokeWidth="0.5"
                   initial={{ opacity: 0.3 }}
-                  animate={{ opacity: [0.2, 0.5, 0.2] }}
+                  animate={shouldAnimate ? { opacity: [0.2, 0.5, 0.2] } : { opacity: 0.3 }}
                   transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 + 0.5 }}
                 />
               ))}
@@ -205,44 +279,45 @@ export default function Hero3DModel() {
           {/* Glowing Core */}
           <motion.div
             className={hero3DModelStyles.glowingCore}
-            style={hero3DModelInlineStyles.glowingCore}
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.5, 0.8, 0.5],
+            style={{
+              ...hero3DModelInlineStyles.glowingCore,
+              willChange: 'transform, opacity',
             }}
+            animate={coreControls}
             transition={{ duration: 3, repeat: Infinity }}
           />
 
-          {/* Floating Particles Inside */}
-          {particles.slice(0, 15).map((particle) => (
-            <FloatingParticle key={particle.id} {...particle} />
+          {/* Floating Particles Inside - Limited to 12 */}
+          {particles.slice(0, Math.min(12, particles.length)).map((particle) => (
+            <FloatingParticle key={particle.id} {...particle} shouldAnimate={shouldAnimate} />
           ))}
         </motion.div>
 
         {/* External Floating Particles */}
         <div className={hero3DModelStyles.externalParticles}>
-          {particles.slice(15).map((particle) => (
-            <FloatingParticle key={particle.id} {...particle} />
+          {particles.slice(12).map((particle) => (
+            <FloatingParticle key={particle.id} {...particle} shouldAnimate={shouldAnimate} />
           ))}
         </div>
 
-        {/* Sparkle Effects */}
-        {[...Array(6)].map((_, i) => (
+        {/* Sparkle Effects - Reduced from 6 to 4 */}
+        {[...Array(4)].map((_, i) => (
           <motion.div
             key={`sparkle-${i}`}
             className={hero3DModelStyles.sparkle}
             style={{
-              left: `${50 + Math.cos((i * Math.PI * 2) / 6) * 55}%`,
-              top: `${50 + Math.sin((i * Math.PI * 2) / 6) * 55}%`,
+              left: `${50 + Math.cos((i * Math.PI * 2) / 4) * 55}%`,
+              top: `${50 + Math.sin((i * Math.PI * 2) / 4) * 55}%`,
+              willChange: 'transform, opacity',
             }}
-            animate={{
+            animate={shouldAnimate ? {
               scale: [0, 1, 0],
               opacity: [0, 1, 0],
-            }}
+            } : { scale: 0, opacity: 0 }}
             transition={{
               duration: 2,
               repeat: Infinity,
-              delay: i * 0.3,
+              delay: i * 0.4,
             }}
           >
             <div className={hero3DModelStyles.sparkleInner} />

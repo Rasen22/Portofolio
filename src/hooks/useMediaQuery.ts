@@ -192,3 +192,38 @@ export function useScrollDirection() {
 
   return scrollDirection;
 }
+
+// Hook to detect if tab is visible (for pausing animations)
+export function useTabVisibility(): boolean {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const handleVisibilityChange = () => {
+      setIsVisible(!document.hidden);
+    };
+
+    // Set initial state
+    setIsVisible(!document.hidden);
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
+  return isVisible;
+}
+
+// Combined hook for animation state (respects reduced motion and tab visibility)
+export function useAnimationState(): { shouldAnimate: boolean; isTabVisible: boolean } {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const isTabVisible = useTabVisibility();
+
+  return {
+    shouldAnimate: !prefersReducedMotion && isTabVisible,
+    isTabVisible,
+  };
+}
