@@ -20,7 +20,7 @@ interface LocomotiveScrollOptions {
 
 export function useLocomotiveScroll(options: LocomotiveScrollOptions = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line no-explicit-any
   const locomotiveScrollRef = useRef<any>(null);
   const [isReady, setIsReady] = useState(false);
 
