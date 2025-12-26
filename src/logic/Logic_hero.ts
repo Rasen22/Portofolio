@@ -12,11 +12,12 @@ export const techStack = [
 
 // Hero content text
 export const heroContent = {
+  badge: 'OPEN TO WORK',
   greeting: '<Hello World />',
   name: 'Alex Dev',
-  title: 'UI/UX Designer & Developer',
+  title: 'UI/UX Designer & Frontend Developer',
   description:
-    'Crafting decentralized experiences with pixel-perfect precision. Bridging the gap between complex blockchain tech and intuitive user interfaces.',
+    'Building immersive digital experiences for the decentralized web. I bridge the gap between complex blockchain protocols and intuitive user interfaces.',
   downloadButtonText: 'Download CV',
   contactButtonText: 'Contact Me',
   techStackLabel: 'Tech Stack',

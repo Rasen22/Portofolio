@@ -11,14 +11,14 @@ export interface LatestProject {
   description: string;
 }
 
-// Projects Data
+// Projects Data - Using placeholder images
 export const latestProjects: LatestProject[] = [
   {
     id: '1',
     slug: 'defi-exchange',
     title: 'DeFi Exchange',
     category: 'Web3',
-    thumbnail: '/projects/defi.jpg',
+    thumbnail: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=600&fit=crop',
     description: 'Decentralized exchange platform with AMM',
   },
   {
@@ -26,7 +26,7 @@ export const latestProjects: LatestProject[] = [
     slug: 'nft-marketplace',
     title: 'NFT Marketplace',
     category: 'Blockchain',
-    thumbnail: '/projects/nft.jpg',
+    thumbnail: 'https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?w=800&h=600&fit=crop',
     description: 'Multi-chain NFT trading platform',
   },
   {
@@ -34,7 +34,7 @@ export const latestProjects: LatestProject[] = [
     slug: 'dao-governance',
     title: 'DAO Governance',
     category: 'Web3',
-    thumbnail: '/projects/dao.jpg',
+    thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop',
     description: 'On-chain governance system',
   },
   {
@@ -42,7 +42,7 @@ export const latestProjects: LatestProject[] = [
     slug: 'crypto-wallet',
     title: 'Crypto Wallet',
     category: 'Mobile',
-    thumbnail: '/projects/wallet.jpg',
+    thumbnail: 'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800&h=600&fit=crop',
     description: 'Multi-currency wallet app',
   },
   {
@@ -50,7 +50,7 @@ export const latestProjects: LatestProject[] = [
     slug: 'metaverse-app',
     title: 'Metaverse Portal',
     category: 'Web3',
-    thumbnail: '/projects/metaverse.jpg',
+    thumbnail: 'https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=800&h=600&fit=crop',
     description: '3D virtual world experience',
   },
   {
@@ -58,7 +58,7 @@ export const latestProjects: LatestProject[] = [
     slug: 'blockchain-explorer',
     title: 'Chain Explorer',
     category: 'Tools',
-    thumbnail: '/projects/explorer.jpg',
+    thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
     description: 'Real-time blockchain analytics',
   },
 ];

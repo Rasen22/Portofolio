@@ -2,135 +2,89 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { GradientText } from '@/components/ui';
-import { heroContentStyles, heroContentAnimations } from '@/styles';
-import { techStack, heroContent } from '@/logic';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
 
 export default function HeroContent() {
   return (
     <motion.div
-      className={heroContentStyles.container}
-      variants={heroContentAnimations.container}
+      className="flex flex-col space-y-5"
+      variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      {/* Greeting */}
-      <motion.div variants={heroContentAnimations.item} className={heroContentStyles.greeting.container}>
-        <motion.span
-          className={heroContentStyles.greeting.text}
-          animate={heroContentAnimations.greeting.animate}
-          transition={heroContentAnimations.greeting.transition}
-        >
-          {heroContent.greeting}
-        </motion.span>
+      {/* Open to Work Badge */}
+      <motion.div 
+        variants={itemVariants} 
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/30 w-fit"
+      >
+        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+        <span className="text-cyan-400 text-xs font-semibold tracking-wider uppercase">
+          OPEN TO WORK
+        </span>
       </motion.div>
 
       {/* Name */}
-      <motion.h1 variants={heroContentAnimations.item} className={heroContentStyles.heading}>
+      <motion.h1 
+        variants={itemVariants} 
+        className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-white"
+      >
         Hi, I&apos;m{' '}
-        <GradientText className={heroContentStyles.gradientText}>
-          {heroContent.name}
-        </GradientText>
+        <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+          Alex Dev
+        </span>
       </motion.h1>
 
       {/* Title */}
-      <motion.div variants={heroContentAnimations.item} className={heroContentStyles.title.container}>
-        <div className={heroContentStyles.title.line} />
-        <p className={heroContentStyles.title.text}>
-          {heroContent.title}
-        </p>
-      </motion.div>
+      <motion.p 
+        variants={itemVariants} 
+        className="text-base md:text-lg text-gray-300 font-medium"
+      >
+        UI/UX Designer & Frontend Developer
+      </motion.p>
 
       {/* Description */}
-      <motion.p variants={heroContentAnimations.item} className={heroContentStyles.description}>
-        {heroContent.description}
+      <motion.p 
+        variants={itemVariants} 
+        className="text-gray-400 text-sm md:text-base max-w-md leading-relaxed"
+      >
+        Building immersive digital experiences for the decentralized web. I bridge the gap between complex blockchain protocols and intuitive user interfaces.
       </motion.p>
 
       {/* Buttons */}
-      <motion.div variants={heroContentAnimations.item} className={heroContentStyles.buttonsContainer}>
+      <motion.div variants={itemVariants} className="flex flex-row gap-4 pt-4">
+        {/* Contact Button */}
+        <Link href="/contact">
+          <motion.button
+            className="px-7 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 shadow-lg shadow-cyan-400/25 hover:shadow-cyan-400/40 transition-all duration-300 text-black font-semibold text-sm"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Contact Me
+          </motion.button>
+        </Link>
+
         {/* Download CV Button */}
         <motion.a
           href="/cv.pdf"
           download
-          className={heroContentStyles.downloadButton.base}
-          whileHover={{ scale: 1.02 }}
+          className="px-7 py-3 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm hover:border-white/40 hover:bg-white/10 transition-all duration-300 text-white font-medium text-sm"
+          whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}
-          aria-label="Download CV"
         >
-          <span className={heroContentStyles.downloadButton.content}>
-            <svg
-              className={heroContentStyles.downloadButton.icon}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
-            {heroContent.downloadButtonText}
-          </span>
-          <div className={heroContentStyles.downloadButton.hoverOverlay} />
+          Download CV
         </motion.a>
-
-        {/* Contact Button with Glow */}
-        <Link href="/contact">
-          <motion.button
-            className={heroContentStyles.contactButton.base}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            aria-label="Contact me"
-          >
-            {/* Pulse glow effect */}
-            <motion.div
-              className={heroContentStyles.contactButton.glowOverlay}
-              animate={{ boxShadow: heroContentAnimations.contactButtonGlow.boxShadow }}
-              transition={heroContentAnimations.contactButtonGlow.transition}
-            />
-            <span className={heroContentStyles.contactButton.content}>
-              {heroContent.contactButtonText}
-              <svg
-                className={heroContentStyles.contactButton.icon}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                />
-              </svg>
-            </span>
-          </motion.button>
-        </Link>
-      </motion.div>
-
-      {/* Tech Stack Pills */}
-      <motion.div variants={heroContentAnimations.item} className={heroContentStyles.techStack.container}>
-        <p className={heroContentStyles.techStack.label}>
-          {heroContent.techStackLabel}
-        </p>
-        <div className={heroContentStyles.techStack.pillsContainer}>
-          {techStack.map(
-            (tech, index) => (
-              <motion.span
-                key={tech}
-                className={heroContentStyles.techStack.pill}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1 + index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                {tech}
-              </motion.span>
-            )
-          )}
-        </div>
       </motion.div>
     </motion.div>
   );

@@ -15,8 +15,8 @@ export const hero3DModelStyles = {
   // Orbiting Ring
   orbitingRing: 'absolute rounded-full border-2 border-dashed',
 
-  // Main Sphere
-  mainSphere: 'relative w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full',
+  // Main Sphere - Ukuran lebih besar
+  mainSphere: 'relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full',
 
   // Inner Gradient
   innerGradient: 'absolute inset-2 rounded-full overflow-hidden',
@@ -31,7 +31,7 @@ export const hero3DModelStyles = {
   floatingParticle: 'absolute rounded-full',
 
   // External Particles Container
-  externalParticles: 'absolute -inset-20 pointer-events-none',
+  externalParticles: 'absolute -inset-16 pointer-events-none',
 
   // Sparkle
   sparkle: 'absolute w-2 h-2',

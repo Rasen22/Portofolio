@@ -1,53 +1,60 @@
 // Styles for Hero Content Component
 export const heroContentStyles = {
   // Main Container
-  container: 'flex flex-col justify-center space-y-6 md:space-y-8',
+  container: 'flex flex-col space-y-5',
 
-  // Greeting
+  // Open to Work Badge
+  badge: {
+    container: 'inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/30 w-fit',
+    dot: 'w-2 h-2 rounded-full bg-cyan-400 animate-pulse',
+    text: 'text-cyan-400 text-xs font-semibold tracking-wider uppercase',
+  },
+
+  // Greeting (hidden)
   greeting: {
-    container: 'space-y-2',
-    text: 'text-cyan-400 font-mono text-sm md:text-base tracking-wider',
+    container: 'hidden',
+    text: 'hidden',
   },
 
   // Name/Title
-  heading: 'text-4xl md:text-5xl lg:text-7xl font-bold leading-tight',
-  gradientText: 'text-4xl md:text-5xl lg:text-7xl font-bold',
+  heading: 'text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-white',
+  gradientText: 'text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent',
 
   // Title Section
   title: {
-    container: 'flex items-center gap-3',
-    line: 'h-px w-8 bg-gradient-to-r from-cyan-400 to-purple-500',
-    text: 'text-lg md:text-xl text-gray-300 font-medium',
+    container: '',
+    line: 'hidden',
+    text: 'text-base md:text-lg text-gray-300 font-medium',
   },
 
   // Description
-  description: 'text-gray-400 text-base md:text-lg max-w-lg leading-relaxed',
+  description: 'text-gray-400 text-sm md:text-base max-w-md leading-relaxed',
 
   // Buttons Container
-  buttonsContainer: 'flex flex-col sm:flex-row gap-4 pt-4',
+  buttonsContainer: 'flex flex-row gap-4 pt-4',
 
-  // Download CV Button
-  downloadButton: {
-    base: 'group relative px-8 py-4 rounded-lg border border-white/20 bg-transparent overflow-hidden transition-all duration-300 hover:border-cyan-400/50',
-    content: 'relative z-10 flex items-center justify-center gap-2 text-white font-medium',
-    icon: 'w-5 h-5 transition-transform group-hover:-translate-y-1',
-    hoverOverlay: 'absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300',
-  },
-
-  // Contact Button
+  // Contact Button (Primary)
   contactButton: {
-    base: 'group relative px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-400 to-purple-500 overflow-hidden',
-    glowOverlay: 'absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-lg',
-    content: 'relative z-10 flex items-center justify-center gap-2 text-black font-semibold',
-    icon: 'w-5 h-5 transition-transform group-hover:translate-x-1',
+    base: 'px-7 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 shadow-lg shadow-cyan-400/25 hover:shadow-cyan-400/40 transition-all duration-300',
+    glowOverlay: 'hidden',
+    content: 'text-black font-semibold text-sm',
+    icon: 'hidden',
   },
 
-  // Tech Stack
+  // Download CV Button (Secondary)
+  downloadButton: {
+    base: 'px-7 py-3 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm hover:border-white/40 hover:bg-white/10 transition-all duration-300',
+    content: 'text-white font-medium text-sm',
+    icon: 'hidden',
+    hoverOverlay: 'hidden',
+  },
+
+  // Tech Stack (Hidden)
   techStack: {
-    container: 'pt-8',
-    label: 'text-gray-500 text-sm mb-4 tracking-wider uppercase',
-    pillsContainer: 'flex flex-wrap gap-3',
-    pill: 'px-4 py-2 rounded-full text-sm border border-white/10 text-gray-300 bg-white/5 hover:border-cyan-400/50 hover:text-cyan-400 transition-all duration-300',
+    container: 'hidden',
+    label: 'hidden',
+    pillsContainer: 'hidden',
+    pill: 'hidden',
   },
 };
 

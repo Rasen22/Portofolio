@@ -5,18 +5,21 @@ export const homeStyles = {
 
   // Hero Section
   hero: {
-    section: 'relative min-h-screen flex items-center overflow-hidden pt-20 md:pt-24',
-    gradientOrbCyan: 'absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-cyan-400/5 rounded-full blur-[120px] animate-float',
-    gradientOrbPurple: 'absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[120px] animate-float animation-delay-2000',
-    contentContainer: 'container mx-auto px-4 md:px-6 relative z-10',
-    gridLayout: 'grid lg:grid-cols-2 gap-8 lg:gap-16 items-center',
-    leftContent: 'order-2 lg:order-1',
-    rightContent: 'order-1 lg:order-2 flex justify-center',
+    section: 'relative min-h-screen flex items-center overflow-hidden',
+    gradientOrbCyan: 'absolute top-1/4 -left-32 w-[500px] h-[500px] bg-cyan-400/10 rounded-full blur-[100px]',
+    gradientOrbPurple: 'absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px]',
+    contentContainer: 'container mx-auto px-6 md:px-12 lg:px-20 relative z-10',
+    gridLayout: 'flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 min-h-screen py-20',
+    // 3D Model - Kiri pada desktop, atas pada mobile
+    modelContainer: 'w-full lg:w-1/2 flex items-center justify-center order-1 lg:order-1',
+    modelWrapper: 'relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px]',
+    // Text Content - Kanan pada desktop, bawah pada mobile
+    textContainer: 'w-full lg:w-1/2 flex flex-col justify-center order-2 lg:order-2',
   },
 
-  // Scroll Indicator
+  // Scroll Indicator - Hidden for cleaner design
   scrollIndicator: {
-    container: 'absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2',
+    container: 'hidden',
     text: 'text-gray-500 text-sm tracking-wider',
     wheel: 'w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2',
     dot: 'w-1.5 h-1.5 bg-cyan-400 rounded-full',

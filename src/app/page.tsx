@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
-import { homeStyles } from '@/styles';
 import { useIsMobile } from '@/hooks';
 import { 
   SkeletonModel, 
@@ -63,65 +62,48 @@ export default function HomePage() {
   const isMobile = useIsMobile();
 
   return (
-    <div className={homeStyles.container}>
+    <div className="relative">
       {/* Hero Section */}
-      <section id="home" className={homeStyles.hero.section}>
-        {/* Background Effects - Use fallback on mobile */}
+      <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Background Effects */}
         {isMobile ? (
           <FallbackParticles />
         ) : (
-          <ParticlesBackground className={homeStyles.particles} />
+          <ParticlesBackground className="opacity-30" />
         )}
         
         {/* Gradient Orbs */}
-        <div className={homeStyles.hero.gradientOrbCyan} />
-        <div className={homeStyles.hero.gradientOrbPurple} />
+        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-cyan-400/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px]" />
 
-        <div className={homeStyles.hero.contentContainer}>
-          {/* Split Layout: Content Left, 3D Right */}
-          <div className={homeStyles.hero.gridLayout}>
-            {/* Left: Content - Shows second on mobile */}
+        {/* Main Content Container */}
+        <div className="container mx-auto px-6 lg:px-16 relative z-10">
+          {/* Grid: 2 columns - LEFT: 3D Model, RIGHT: Text */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-screen py-20">
+            
+            {/* LEFT COLUMN: 3D Model / Animation */}
             <motion.div
-              className={homeStyles.hero.leftContent}
+              className="flex items-center justify-center lg:justify-start order-2 lg:order-1"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <HeroContent />
+              <div className="w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px]">
+                {isMobile ? <FallbackHeroImage /> : <Hero3DModel />}
+              </div>
             </motion.div>
 
-            {/* Right: 3D Model - Use fallback on mobile */}
+            {/* RIGHT COLUMN: Text Content */}
             <motion.div
-              className={homeStyles.hero.rightContent}
+              className="flex flex-col justify-center order-1 lg:order-2"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              {isMobile ? <FallbackHeroImage /> : <Hero3DModel />}
+              <HeroContent />
             </motion.div>
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          className={homeStyles.scrollIndicator.container}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 0.6 }}
-        >
-          <span className={homeStyles.scrollIndicator.text}>Scroll Down</span>
-          <motion.div
-            className={homeStyles.scrollIndicator.wheel}
-            animate={{ borderColor: ['rgba(255,255,255,0.2)', 'rgba(0,243,255,0.5)', 'rgba(255,255,255,0.2)'] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <motion.div
-              className={homeStyles.scrollIndicator.dot}
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          </motion.div>
-        </motion.div>
       </section>
 
       {/* Skills Section */}
@@ -131,36 +113,36 @@ export default function HomePage() {
       <LatestProjects />
 
       {/* CTA Section */}
-      <section className={homeStyles.cta.section}>
+      <section className="py-20 md:py-32 relative overflow-hidden">
         {/* Background gradient */}
-        <div className={homeStyles.cta.bgGradient} />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/5 to-transparent" />
         
-        <div className={homeStyles.cta.contentContainer}>
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
-            className={homeStyles.cta.innerContainer}
+            className="max-w-3xl mx-auto text-center"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className={homeStyles.cta.heading}>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
               Let&apos;s Build Something{' '}
-              <span className={homeStyles.cta.gradientText}>Amazing</span>{' '}
+              <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Amazing</span>{' '}
               Together
             </h2>
-            <p className={homeStyles.cta.description}>
+            <p className="text-gray-400 text-lg mb-10">
               Have a project in mind? I&apos;d love to hear about it. Let&apos;s discuss how we can
               work together to bring your ideas to life.
             </p>
             <motion.a
               href="/contact"
-              className={homeStyles.cta.button}
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-lg text-black font-semibold group"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               Start a Conversation
               <svg
-                className={homeStyles.cta.buttonIcon}
+                className="w-5 h-5 transition-transform group-hover:translate-x-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

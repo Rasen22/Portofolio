@@ -4,12 +4,12 @@ export const latestProjectsStyles = {
   section: 'py-20 md:py-32 overflow-hidden',
   
   // Container
-  container: 'container mx-auto px-4',
+  container: 'relative',
 
   // Header
   header: {
-    wrapper: 'flex flex-col md:flex-row md:items-end md:justify-between mb-12',
-    container: 'flex flex-col md:flex-row md:items-end md:justify-between mb-12',
+    wrapper: 'container mx-auto px-4 flex flex-col md:flex-row md:items-end md:justify-between mb-12',
+    container: 'container mx-auto px-4 flex flex-col md:flex-row md:items-end md:justify-between mb-12',
     labelContainer: '',
     label: 'text-cyan-400 font-mono text-sm tracking-wider uppercase',
     heading: 'text-3xl md:text-4xl lg:text-5xl font-bold mt-4',
@@ -20,21 +20,21 @@ export const latestProjectsStyles = {
 
   // Progress Bar
   progressBar: {
-    container: 'relative h-1 bg-white/10 rounded-full mb-8 overflow-hidden',
+    container: 'container mx-auto px-4 relative h-1 bg-white/10 rounded-full mb-8 overflow-hidden',
     fill: 'absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full',
   },
 
   // Scroll Progress (alias)
   scrollProgress: {
-    container: 'relative h-1 bg-white/10 rounded-full mb-8 overflow-hidden',
+    container: 'container mx-auto px-4 relative h-1 bg-white/10 rounded-full mb-8 overflow-hidden',
     fill: 'absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full',
   },
 
   // Scroll Container
-  scrollContainer: 'flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide cursor-grab active:cursor-grabbing',
+  scrollContainer: 'flex gap-6 overflow-x-auto pb-8 px-4 md:px-[calc(50vw-600px)] snap-x snap-mandatory cursor-grab active:cursor-grabbing',
 
   // Spacer
-  spacer: 'flex-shrink-0 w-[calc(50vw-200px)] md:w-[calc(50vw-224px)]',
+  spacer: 'flex-shrink-0 w-4 md:w-8',
 
   // Card Wrapper
   cardWrapper: 'snap-center flex-shrink-0',
@@ -42,15 +42,15 @@ export const latestProjectsStyles = {
   // Navigation Dots
   dots: {
     container: 'flex justify-center gap-2 mt-8',
-    dot: 'rounded-full transition-all duration-300',
+    dot: 'rounded-full transition-all duration-300 cursor-pointer',
     active: 'w-8 h-2 bg-gradient-to-r from-cyan-400 to-purple-500',
     inactive: 'w-2 h-2 bg-white/20 hover:bg-white/40',
   },
 
   // Project Card
   card: {
-    container: 'relative flex-shrink-0 w-[300px] md:w-[400px] h-[250px] md:h-[300px] rounded-xl overflow-hidden cursor-pointer group',
-    base: 'relative flex-shrink-0 w-[300px] md:w-[400px] h-[250px] md:h-[300px] rounded-xl overflow-hidden cursor-pointer group',
+    container: 'relative flex-shrink-0 w-[320px] md:w-[400px] h-[280px] md:h-[350px] rounded-2xl overflow-hidden cursor-pointer group bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10',
+    base: 'relative flex-shrink-0 w-[320px] md:w-[400px] h-[280px] md:h-[350px] rounded-2xl overflow-hidden cursor-pointer group bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10',
     centerZ: 'z-10',
     normalZ: 'z-0',
     borderGlow: {
