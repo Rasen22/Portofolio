@@ -212,7 +212,7 @@ export default function ProfilePage() {
               <h1 className={profileStyles.bio.heading}>
                 I&apos;m{' '}
                 <span className={profileStyles.bio.gradientName}>
-                  Alex Dev
+                  Farhan Rasendriya 
                 </span>
               </h1>
               <p className={profileStyles.bio.paragraph}>

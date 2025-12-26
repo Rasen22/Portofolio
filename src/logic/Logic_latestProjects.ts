@@ -2,6 +2,8 @@
 // Separated from interface for clean architecture
 
 // Types
+export type ProjectStatus = 'IN PROGRESS' | 'COMPLETED' | 'ARCHIVED';
+
 export interface LatestProject {
   id: string;
   slug: string;
@@ -9,7 +11,30 @@ export interface LatestProject {
   category: string;
   thumbnail: string;
   description: string;
+  status: ProjectStatus;
 }
+
+// Status color mapping
+export const statusColors: Record<ProjectStatus, { border: string; bg: string; shadow: string; text: string }> = {
+  'IN PROGRESS': {
+    border: '#00f3ff',
+    bg: 'rgba(0, 243, 255, 0.2)',
+    shadow: '0 0 20px rgba(0, 243, 255, 0.5)',
+    text: '#00f3ff',
+  },
+  'COMPLETED': {
+    border: '#00c36d',
+    bg: 'rgba(0, 195, 109, 0.2)',
+    shadow: '0 0 20px rgba(0, 195, 109, 0.5)',
+    text: '#00c36d',
+  },
+  'ARCHIVED': {
+    border: '#b967ff',
+    bg: 'rgba(185, 103, 255, 0.2)',
+    shadow: '0 0 20px rgba(185, 103, 255, 0.5)',
+    text: '#b967ff',
+  },
+};
 
 // Projects Data - Using placeholder images
 export const latestProjects: LatestProject[] = [
@@ -20,6 +45,7 @@ export const latestProjects: LatestProject[] = [
     category: 'Web3',
     thumbnail: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=600&fit=crop',
     description: 'Decentralized exchange platform with AMM',
+    status: 'IN PROGRESS',
   },
   {
     id: '2',
@@ -28,6 +54,7 @@ export const latestProjects: LatestProject[] = [
     category: 'Blockchain',
     thumbnail: 'https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?w=800&h=600&fit=crop',
     description: 'Multi-chain NFT trading platform',
+    status: 'COMPLETED',
   },
   {
     id: '3',
@@ -36,6 +63,7 @@ export const latestProjects: LatestProject[] = [
     category: 'Web3',
     thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop',
     description: 'On-chain governance system',
+    status: 'COMPLETED',
   },
   {
     id: '4',
@@ -44,6 +72,7 @@ export const latestProjects: LatestProject[] = [
     category: 'Mobile',
     thumbnail: 'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800&h=600&fit=crop',
     description: 'Multi-currency wallet app',
+    status: 'IN PROGRESS',
   },
   {
     id: '5',
@@ -52,6 +81,7 @@ export const latestProjects: LatestProject[] = [
     category: 'Web3',
     thumbnail: 'https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=800&h=600&fit=crop',
     description: '3D virtual world experience',
+    status: 'ARCHIVED',
   },
   {
     id: '6',
@@ -60,6 +90,7 @@ export const latestProjects: LatestProject[] = [
     category: 'Tools',
     thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
     description: 'Real-time blockchain analytics',
+    status: 'COMPLETED',
   },
 ];
 

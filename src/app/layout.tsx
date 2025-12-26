@@ -12,8 +12,8 @@ const CustomCursor = dynamic(() => import('@/components/ui/CustomCursor'), {
 
 export const metadata: Metadata = {
   title: {
-    default: 'Alex Dev | Web3 Developer & UI/UX Designer',
-    template: '%s | Alex Dev Portfolio',
+    default: 'Farhan Dev | Developer & UI/UX Designer',
+    template: '%s | Farhan Dev Portfolio',
   },
   description:
     'Crafting decentralized experiences with pixel-perfect precision. Full-stack developer specializing in Web3, blockchain, and modern UI/UX design.',
@@ -29,31 +29,31 @@ export const metadata: Metadata = {
     'portfolio',
     'frontend developer',
   ],
-  authors: [{ name: 'Alex Dev', url: 'https://alexdev.eth' }],
-  creator: 'Alex Dev',
+  authors: [{ name: 'Farhan Rasendriya', url: '' }],
+  creator: 'Farhan Rasendriya',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://alexdev.eth',
-    title: 'Alex Dev | Web3 Developer & UI/UX Designer',
+    url: '',
+    title: 'Farhan | Developer & UI/UX Designer',
     description:
       'Crafting decentralized experiences with pixel-perfect precision. Full-stack developer specializing in Web3, blockchain, and modern UI/UX design.',
-    siteName: 'Alex Dev Portfolio',
+    siteName: 'Farhan Portfolio',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Alex Dev Portfolio',
+        alt: 'Farhan Dev Portfolio',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Alex Dev | Web3 Developer & UI/UX Designer',
+    title: 'Farhan Rasendriya | Developer & UI/UX Designer',
     description:
       'Crafting decentralized experiences with pixel-perfect precision.',
-    creator: '@alexdev',
+    creator: '@FarhanRasen',
     images: ['/og-image.png'],
   },
   robots: {

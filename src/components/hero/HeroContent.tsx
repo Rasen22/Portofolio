@@ -42,7 +42,7 @@ export default function HeroContent() {
       >
         Hi, I&apos;m{' '}
         <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-          Alex Dev
+          Farhan Rasendriya
         </span>
       </motion.h1>
 
