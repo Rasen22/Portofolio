@@ -1,7 +1,7 @@
 // Styles for Profile Page
 export const profileStyles = {
-  // Main container
-  container: 'relative min-h-screen pt-24 pb-20',
+  // Main container - increased top padding to avoid navbar overlap
+  container: 'relative min-h-screen pt-32 md:pt-40 pb-20',
 
   // Background Effects
   background: {
@@ -10,7 +10,7 @@ export const profileStyles = {
   },
 
   // Content Container
-  contentContainer: 'container mx-auto px-4 relative z-10',
+  contentContainer: 'container mx-auto px-4 md:px-6 relative z-10',
 
   // Header Section
   header: {
