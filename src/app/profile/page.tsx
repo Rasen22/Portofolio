@@ -97,55 +97,57 @@ function ProfilePhoto() {
     offset: ['start end', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [-5, 5]);
+  const y = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [-3, 3]);
 
   return (
-    <motion.div ref={ref} className="relative" style={{ y, rotate }}>
-      {/* Glow border */}
-      <motion.div
-        className={profileStyles.profilePhoto.glowBorder}
-        animate={profileAnimations.photoGlow}
-        transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
-        style={{ backgroundSize: '200% 200%' }}
-      />
-      
-      {/* Shadow */}
-      <motion.div
-        className={profileStyles.profilePhoto.shadow}
-        animate={profileAnimations.photoShadow}
-        transition={{ duration: 3, repeat: Infinity }}
-      />
-
-      {/* Photo container */}
-      <div className={profileStyles.profilePhoto.photoContainer}>
-        {/* Placeholder gradient - replace with actual image */}
-        <div className={profileStyles.profilePhoto.photoPlaceholder}>
-          {/* User icon SVG instead of emoji */}
-          <svg className="w-16 h-16 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-          </svg>
-        </div>
-      </div>
-
-      {/* Floating badges */}
-      {profileBadges.map((badge, index) => (
+    <div className={profileStyles.profilePhoto.wrapper}>
+      <motion.div ref={ref} className="relative" style={{ y, rotate }}>
+        {/* Glow border */}
         <motion.div
-          key={badge.label}
-          className={`absolute ${profileStyles.badgePositions[badge.positionKey]} ${profileStyles.profilePhoto.floatingBadge}`}
-          animate={profileAnimations.floatingBadge}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            delay: index * 0.5,
+          className={profileStyles.profilePhoto.glowBorder}
+          animate={profileAnimations.photoGlow}
+          transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+          style={{ backgroundSize: '200% 200%' }}
+        />
+        
+        {/* Shadow */}
+        <motion.div
+          className={profileStyles.profilePhoto.shadow}
+          animate={profileAnimations.photoShadow}
+          transition={{ duration: 3, repeat: Infinity }}
+        />
+
+        {/* Photo container */}
+        <div className={profileStyles.profilePhoto.photoContainer}>
+          {/* Placeholder gradient - replace with actual image */}
+          <div className={profileStyles.profilePhoto.photoPlaceholder}>
+            {/* User icon SVG instead of emoji */}
+            <svg className="w-12 h-12 md:w-16 md:h-16 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+          </div>
+        </div>
+
+        {/* Floating badges */}
+        {profileBadges.map((badge, index) => (
+          <motion.div
+            key={badge.label}
+            className={`absolute ${profileStyles.badgePositions[badge.positionKey]} ${profileStyles.profilePhoto.floatingBadge}`}
+            animate={profileAnimations.floatingBadge}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: index * 0.5,
           }}
         >
-          <svg className="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 md:w-5 md:h-5 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
             <path d={getBadgeIcon(badge.iconType)} />
           </svg>
         </motion.div>
       ))}
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
 
