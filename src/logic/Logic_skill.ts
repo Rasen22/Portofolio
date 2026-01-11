@@ -3,7 +3,7 @@ import { Variants } from 'framer-motion';
 
 export interface SkillItem {
   name: string;
-  filled: boolean;
+  icon: string; // Path to icon in /Assets/Icon/
 }
 
 export interface SkillCategory {
@@ -14,32 +14,27 @@ export interface SkillCategory {
 export const skillData = {
   badge: 'Tech Stack',
   title: 'Skill',
-  subtitle: 'Detail singkat.....',
+  subtitle: 'Tools and technologies I master to bring ideas to life.',
   categories: [
     {
       title: 'Web Development & Deployment',
       skills: [
-        { name: '', filled: true },
-        { name: '', filled: true },
-        { name: '', filled: false },
-        { name: '', filled: false },
-        { name: '', filled: false },
-        { name: '', filled: false },
-        { name: '', filled: false },
-        { name: '', filled: false },
+        { name: 'LARAVEL', icon: '/Assets/Icon/laravel.png' },
+        { name: 'PHP', icon: '/Assets/Icon/php.png' },
+        { name: 'XAMPP', icon: '/Assets/Icon/xampp.png' },
+        { name: 'TYPESCRIPT', icon: '/Assets/Icon/typescript.png' },
+        { name: 'REACT.JS', icon: '/Assets/Icon/react.png' },
+        { name: 'REACT QUERY', icon: '/Assets/Icon/react-query.png' },
       ],
     },
     {
       title: 'Design & Productivity Tools',
       skills: [
-        { name: '', filled: true },
-        { name: '', filled: true },
-        { name: '', filled: false },
-        { name: '', filled: false },
-        { name: '', filled: false },
-        { name: '', filled: false },
-        { name: '', filled: false },
-        { name: '', filled: false },
+        { name: 'FIGMA', icon: '/Assets/Icon/figma.png' },
+        { name: 'CANVA', icon: '/Assets/Icon/canva.png' },
+        { name: 'POWERPOINT', icon: '/Assets/Icon/powerpoint.png' },
+        { name: 'WORD', icon: '/Assets/Icon/word.png' },
+        { name: 'EXCEL', icon: '/Assets/Icon/excel.png' },
       ],
     },
   ] as SkillCategory[],
