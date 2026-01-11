@@ -4,26 +4,48 @@ import { Variants } from 'framer-motion';
 export interface Project {
   id: string;
   title: string;
+  category: string;
   description: string;
+  image: string;
   link: string;
 }
 
 export const projectData = {
   title: 'Experience &',
   titleAccent: 'Project',
-  loadMore: 'Load More...',
+  loadMore: 'LOAD MORE PROJECTS',
   projects: [
     {
       id: '1',
-      title: 'Nama Project',
-      description: 'Detail project ...',
-      link: 'Detail >>>',
+      title: 'NeoBank Mobile App',
+      category: 'UI/UX DESIGN & BRANDING',
+      description: 'A modern approach to personal finance management with advanced date visualisation and seamless transaction flows.',
+      image: '/Assets/Project/project1.png',
+      link: '#',
     },
     {
       id: '2',
-      title: 'Nama Project',
-      description: 'Detail project ...',
-      link: 'Detail >>>',
+      title: 'E-Commerce Dashboard',
+      category: 'FRONT-END DEVELOPMENT',
+      description: 'Scalable admin interface built with React and Tailwind CSS, featuring real time analytics and inventory management.',
+      image: '/Assets/Project/project2.png',
+      link: '#',
+    },
+    {
+      id: '3',
+      title: 'Portfolio Website',
+      category: 'WEB DEVELOPMENT',
+      description: 'Personal portfolio showcasing projects and skills with modern animations and responsive design.',
+      image: '/Assets/Project/project3.png',
+      link: '#',
+    },
+    {
+      id: '4',
+      title: 'Task Management App',
+      category: 'FULL-STACK DEVELOPMENT',
+      description: 'Collaborative task management platform with real-time updates and team collaboration features.',
+      image: '/Assets/Project/project4.png',
+      link: '#',
     },
   ] as Project[],
 };
