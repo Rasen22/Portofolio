@@ -1,34 +1,39 @@
 // Hero Section Styles
 
 export const heroStyles = {
-  section: `min-h-screen pt-20 pb-10 px-4 sm:px-6 lg:px-8 flex items-center`,
-  container: `max-w-6xl mx-auto w-full`,
+  section: `min-h-screen pt-24 pb-16 px-6 sm:px-8 lg:px-12 flex items-center bg-[#0a0a0a]`,
+  container: `max-w-7xl mx-auto w-full`,
   
-  // Main Grid - Photo left, Content right
-  mainGrid: `grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 lg:gap-12 items-start`,
+  // Main Grid - Content left, Photo right
+  mainGrid: `grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-center`,
   
-  // Photo Card Side (Left)
-  photoWrapper: `flex justify-center lg:justify-start`,
-  photoCard: `w-[200px] h-[260px] lg:w-[240px] lg:h-[320px] bg-secondary rounded-xl flex items-center justify-center border border-primary/10`,
-  photoText: `text-primary text-base font-medium`,
-  
-  // Content Side (Right)
-  content: `text-center lg:text-left space-y-3`,
-  badge: `inline-flex items-center px-4 py-1 rounded-full border border-primary/40 text-primary text-xs font-medium`,
-  greeting: `text-2xl md:text-3xl lg:text-4xl font-bold text-primary leading-tight`,
-  nameAccent: `text-accent`,
-  role: `text-base md:text-lg text-secondary font-medium`,
-  description: `text-primary/60 text-sm`,
+  // Content Side (Left)
+  content: `text-left space-y-5 order-2 lg:order-1`,
+  badge: `inline-flex items-center px-4 py-1.5 rounded-md bg-[#1a1a1a] border border-[#333] text-[#E9E3DF]/70 text-[10px] font-semibold tracking-[0.2em] uppercase`,
+  greeting: `text-5xl md:text-6xl lg:text-7xl font-bold text-[#E9E3DF] leading-[1.1]`,
+  nameAccent: `text-[#FF7A30]`,
+  role: `text-[#E9E3DF]/50 text-sm md:text-base max-w-lg leading-relaxed`,
   
   // Buttons
-  buttonGroup: `flex flex-col sm:flex-row gap-3 justify-center lg:justify-start pt-2`,
-  btnContact: `px-5 py-2 bg-secondary text-primary text-sm font-medium rounded-md border border-primary/20 hover:bg-accent hover:border-accent transition-all duration-300`,
-  btnDownload: `px-5 py-2 bg-accent text-black text-sm font-medium rounded-md hover:bg-primary transition-all duration-300`,
+  buttonGroup: `flex flex-row gap-4 pt-2`,
+  btnDownload: `px-6 py-3 bg-[#FF7A30] text-[#0a0a0a] text-xs font-bold rounded-md hover:bg-[#ff8c4a] transition-all duration-300 tracking-wider uppercase`,
+  btnContact: `px-6 py-3 bg-transparent text-[#E9E3DF] text-xs font-bold rounded-md border border-[#444] hover:border-[#FF7A30] hover:text-[#FF7A30] transition-all duration-300 tracking-wider uppercase`,
   
-  // Placeholder Boxes Grid - 4x2 grid
-  boxesWrapper: `pt-6`,
-  boxesGrid: `grid grid-cols-4 gap-3 max-w-[320px] mx-auto lg:mx-0`,
-  box: `aspect-square bg-secondary rounded-md`,
+  // Photo Card Side (Right)
+  photoWrapper: `flex justify-center lg:justify-end order-1 lg:order-2`,
+  photoCard: `relative w-[300px] h-[380px] md:w-[340px] md:h-[420px] rounded-2xl overflow-visible`,
+  photoCardInner: `relative w-full h-full bg-gradient-to-br from-[#1a3a5c] via-[#0d2840] to-[#071a2b] rounded-2xl overflow-hidden border border-[#1e4976]/30`,
+  photoImage: `w-full h-full object-cover object-center`,
+  photoGlow: `absolute inset-0 bg-gradient-to-t from-[#0a4d8c]/30 via-transparent to-transparent`,
+  photoGlowOuter: `absolute -inset-2 bg-gradient-to-br from-[#0a4d8c]/30 via-[#1e6bb8]/20 to-[#0a4d8c]/30 rounded-3xl blur-2xl -z-10`,
+  
+  // Stats Section
+  statsWrapper: `pt-12 border-t border-[#222] mt-8`,
+  statsGrid: `flex flex-row items-center gap-8 md:gap-12`,
+  statItem: `text-left`,
+  statValue: `text-2xl md:text-3xl font-bold text-[#E9E3DF]`,
+  statLabel: `text-[10px] text-[#E9E3DF]/40 mt-1 tracking-wider uppercase`,
+  statDivider: `w-px h-10 bg-[#333]`,
 };
 
 export default heroStyles;

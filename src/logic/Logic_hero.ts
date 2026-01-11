@@ -2,15 +2,19 @@
 import { Variants } from 'framer-motion';
 
 export const heroData = {
-  badge: 'Open To work',
-  greeting: "Hi, I'M",
-  name: 'Farhan Rasendriya Putra Ismanto',
-  role: 'UI/UX & Front end Developer',
-  description: 'Detail Singkat ......',
+  badge: 'OPEN TO WORK',
+  greeting: "Hi, I'm",
+  name: 'Farhan...',
+  role: 'Crafting digital experiences as a UI/UX & Front-end Developer.',
   buttons: {
-    contact: 'Contact me',
-    download: 'Download Cv',
+    download: 'DOWNLOAD CV',
+    contact: 'CONTACT ME',
   },
+  stats: [
+    { value: '5+', label: 'Projects' },
+    { value: '10+', label: 'Technical Skills' },
+    { value: '3+', label: 'Years Experience' },
+  ],
 };
 
 export const heroVariants: Variants = {

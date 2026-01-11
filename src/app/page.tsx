@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="bg-background min-h-screen">
+      <main style={{ backgroundColor: '#0a0a0a', minHeight: '100vh' }}>
         <HeroSection />
         <SkillSection />
         <ProjectSection />
