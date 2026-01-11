@@ -1,9 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { AnimatedButton, GradientText } from '@/components/ui';
 
 export default function Error({
   error,
@@ -17,16 +15,16 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-background">
       <motion.div
         className="text-center space-y-6 max-w-md"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-cyan-400/20 to-purple-500/20 flex items-center justify-center">
+        <div className="w-20 h-20 mx-auto rounded-2xl bg-accent/20 flex items-center justify-center">
           <svg
-            className="w-10 h-10 text-cyan-400"
+            className="w-10 h-10 text-accent"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -41,21 +39,27 @@ export default function Error({
         </div>
 
         <div className="space-y-2">
-          <h1 className="text-3xl font-clash font-bold">
-            <GradientText>Something went wrong!</GradientText>
+          <h1 className="text-3xl font-bold text-accent">
+            Something went wrong!
           </h1>
-          <p className="text-white/60">
+          <p className="text-primary/70">
             We encountered an unexpected error. Please try again or return to the homepage.
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <AnimatedButton onClick={reset} variant="primary">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <button
+            onClick={reset}
+            className="px-6 py-3 rounded-lg font-medium bg-accent text-background hover:bg-accent/90 transition-all duration-300"
+          >
             Try Again
-          </AnimatedButton>
-          <Link href="/">
-            <AnimatedButton variant="secondary">Go Home</AnimatedButton>
-          </Link>
+          </button>
+          <a
+            href="/"
+            className="px-6 py-3 rounded-lg font-medium bg-secondary text-primary hover:bg-secondary/80 transition-all duration-300"
+          >
+            Back to Home
+          </a>
         </div>
       </motion.div>
     </div>

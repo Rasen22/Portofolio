@@ -1,9 +1,8 @@
-// Logic Exports
-// Central export file for all logic modules
+// Logic index - Export all logic modules
+// Import directly from specific files to avoid naming conflicts
 
-export * from './Logic_profile';
-export * from './Logic_contact';
-export * from './Logic_projects';
-export * from './Logic_skillsSection';
-export * from './Logic_latestProjects';
-export * from './Logic_hero';
+export { navLinks, navVariants, menuItemVariants } from './Logic_navbar';
+export { heroData, heroVariants, itemVariants, photoVariants, boxVariants } from './Logic_hero';
+export { skillData } from './Logic_skill';
+export { projectData } from './Logic_project';
+export { contactData } from './Logic_contact';

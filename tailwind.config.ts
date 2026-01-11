@@ -9,111 +9,63 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0A0A0A",
-        foreground: "#FFFFFF",
-        cyan: {
-          400: "#00F3FF",
-          500: "#00D4E4",
-        },
-        purple: {
-          400: "#C084FC",
-          500: "#b967ff",
-          600: "#9333EA",
-        },
+        background: "#000000",
+        primary: "#E9E3DF",
+        secondary: "#465C88",
+        accent: "#FF7A30",
+        subtle: "rgba(233, 227, 223, 0.7)",
       },
       fontFamily: {
-        clash: ["var(--font-clash)", "sans-serif"],
-        satoshi: ["var(--font-satoshi)", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        inter: ["Inter", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
       },
       animation: {
-        "gradient-x": "gradient-x 3s ease infinite",
-        "gradient-y": "gradient-y 3s ease infinite",
-        "gradient-xy": "gradient-xy 3s ease infinite",
-        float: "float 6s ease-in-out infinite",
-        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
-        shimmer: "shimmer 2s linear infinite",
-        "spin-slow": "spin 8s linear infinite",
-        "bounce-subtle": "bounce-subtle 2s ease-in-out infinite",
-        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
+        "fade-in": "fadeIn 0.5s ease-out",
+        "fade-in-up": "fadeInUp 0.6s ease-out",
+        "fade-in-down": "fadeInDown 0.6s ease-out",
+        "slide-in-left": "slideInLeft 0.6s ease-out",
+        "slide-in-right": "slideInRight 0.6s ease-out",
+        "scale-in": "scaleIn 0.4s ease-out",
+        "bounce-subtle": "bounceSubtle 2s ease-in-out infinite",
+        "pulse-glow": "pulseGlow 2s ease-in-out infinite",
       },
       keyframes: {
-        "gradient-x": {
-          "0%, 100%": {
-            "background-size": "200% 200%",
-            "background-position": "left center",
-          },
-          "50%": {
-            "background-size": "200% 200%",
-            "background-position": "right center",
-          },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
-        "gradient-y": {
-          "0%, 100%": {
-            "background-size": "200% 200%",
-            "background-position": "center top",
-          },
-          "50%": {
-            "background-size": "200% 200%",
-            "background-position": "center bottom",
-          },
+        fadeInUp: {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        "gradient-xy": {
-          "0%, 100%": {
-            "background-size": "400% 400%",
-            "background-position": "left top",
-          },
-          "50%": {
-            "background-size": "400% 400%",
-            "background-position": "right bottom",
-          },
+        fadeInDown: {
+          "0%": { opacity: "0", transform: "translateY(-20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-20px)" },
+        slideInLeft: {
+          "0%": { opacity: "0", transform: "translateX(-30px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
         },
-        "pulse-glow": {
-          "0%, 100%": {
-            opacity: "1",
-            boxShadow: "0 0 20px rgba(0, 243, 255, 0.5)",
-          },
-          "50%": {
-            opacity: "0.8",
-            boxShadow: "0 0 40px rgba(185, 103, 255, 0.5)",
-          },
+        slideInRight: {
+          "0%": { opacity: "0", transform: "translateX(30px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
         },
-        shimmer: {
-          "0%": { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
+        scaleIn: {
+          "0%": { opacity: "0", transform: "scale(0.9)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
         },
-        "bounce-subtle": {
+        bounceSubtle: {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-5px)" },
         },
-        "glow-pulse": {
-          "0%, 100%": {
-            boxShadow: "0 0 20px rgba(0, 243, 255, 0.4), 0 0 40px rgba(185, 103, 255, 0.2)",
-          },
-          "50%": {
-            boxShadow: "0 0 40px rgba(0, 243, 255, 0.6), 0 0 80px rgba(185, 103, 255, 0.4)",
-          },
+        pulseGlow: {
+          "0%, 100%": { boxShadow: "0 0 20px rgba(255, 122, 48, 0.3)" },
+          "50%": { boxShadow: "0 0 30px rgba(255, 122, 48, 0.5)" },
         },
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "gradient-cyan-purple":
-          "linear-gradient(135deg, #00F3FF 0%, #b967ff 100%)",
-        "gradient-dark": "linear-gradient(180deg, #0A0A0A 0%, #141414 100%)",
-      },
-      backdropBlur: {
-        xs: "2px",
-      },
       boxShadow: {
-        "glow-cyan": "0 0 20px rgba(0, 243, 255, 0.5)",
-        "glow-purple": "0 0 20px rgba(185, 103, 255, 0.5)",
-        "glow-both": "0 0 20px rgba(0, 243, 255, 0.3), 0 0 40px rgba(185, 103, 255, 0.2)",
+        "glow-accent": "0 0 20px rgba(255, 122, 48, 0.3)",
+        "glow-secondary": "0 0 20px rgba(70, 92, 136, 0.3)",
       },
     },
   },

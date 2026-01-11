@@ -12,8 +12,10 @@ Next.js 14 portfolio website with MetaMask-style animations, dark theme (#0A0A0A
 - **Additional**: lottie-react, react-intersection-observer
 
 ## Design Guidelines
-- Primary background: #0A0A0A
-- Gradient colors: Cyan (#00F3FF) to Purple (#A855F7)
+- Primary background: #BDE8F5 (Light blue - page background/cards)
+- Header/Footer/CTA: #0F2854 (Dark blue)
+- Interactive elements: #1C4D8D (Medium blue)  
+- Content/Graphics: #4988C4 (Light medium blue)
 - Glass morphism cards with backdrop-blur
 - Smooth scroll with parallax effects
 - Page transitions with gradient wipe effect

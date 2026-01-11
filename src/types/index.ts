@@ -1,113 +1,61 @@
-// Project types
-export interface Project {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  longDescription?: string;
-  image: string;
-  images?: string[];
-  technologies: Technology[];
-  category: ProjectCategory;
-  liveUrl?: string;
-  githubUrl?: string;
-  featured: boolean;
-  createdAt: string;
-  completedAt?: string;
-}
+// Types for Portfolio Website
 
-export interface Technology {
-  name: string;
-  icon?: string;
-  color: 'cyan' | 'purple' | 'gradient';
-}
-
-export type ProjectCategory = 
-  | 'web-development'
-  | 'mobile-app'
-  | 'ui-ux-design'
-  | 'branding'
-  | 'other';
-
-// Navigation types
+// Navigation
 export interface NavItem {
   label: string;
   href: string;
-  icon?: string;
 }
 
-// Contact form types
-export interface ContactFormData {
+// Personal Info
+export interface PersonalInfo {
   name: string;
-  email: string;
-  subject: string;
-  message: string;
+  highlightedName: string;
+  title: string;
+  description: string;
+  isOpenToWork: boolean;
 }
 
-// API Response types
-export interface ApiResponse<T> {
-  data: T;
-  success: boolean;
-  message?: string;
+// Skill
+export interface Skill {
+  id: string;
+  name: string;
+  icon?: string;
+  filled: boolean;
 }
 
-export interface ApiError {
-  message: string;
-  code?: string;
-  status?: number;
+export interface SkillCategory {
+  id: string;
+  title: string;
+  skills: Skill[];
 }
 
-// Animation types
-export interface AnimationVariants {
-  initial: object;
-  animate: object;
-  exit?: object;
+// Project
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  link?: string;
+  tags?: string[];
 }
 
-// Social links
+// Social Media
 export interface SocialLink {
+  id: string;
   name: string;
   url: string;
   icon: string;
 }
 
-// Profile/About data
-export interface ProfileData {
+// Contact Form
+export interface ContactFormData {
   name: string;
-  title: string;
-  bio: string;
-  avatar: string;
-  location: string;
   email: string;
-  phone?: string;
-  resumeUrl?: string;
-  socialLinks: SocialLink[];
-  skills: Skill[];
-  experience: Experience[];
-  education: Education[];
+  message: string;
 }
 
-export interface Skill {
-  name: string;
-  level: number; // 0-100
-  category: 'frontend' | 'backend' | 'design' | 'tools' | 'other';
-}
-
-export interface Experience {
-  company: string;
-  position: string;
-  startDate: string;
-  endDate?: string;
-  current: boolean;
-  description: string;
-  technologies: string[];
-}
-
-export interface Education {
-  institution: string;
-  degree: string;
-  field: string;
-  startDate: string;
-  endDate?: string;
-  current: boolean;
+// Animation Variants
+export interface AnimationVariant {
+  hidden: object;
+  visible: object;
 }
