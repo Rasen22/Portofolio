@@ -3,6 +3,8 @@
 
 export { navLinks, navVariants, menuItemVariants } from './Logic_navbar';
 export { heroData, heroVariants, itemVariants, photoVariants, boxVariants } from './Logic_hero';
+export { aboutData, useAboutLogic } from './Logic_about';
+export { aboutMeData, useAboutMeLogic } from './Logic_aboutMe';
 export { skillData } from './Logic_skill';
 export { projectData } from './Logic_project';
 export { contactData } from './Logic_contact';

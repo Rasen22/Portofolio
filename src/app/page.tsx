@@ -3,6 +3,7 @@
 import { Navbar, Footer } from '@/components/layout';
 import {
   HeroSection,
+  AboutMeSection,
   SkillSection,
   ProjectSection,
   ContactSection,
@@ -14,6 +15,7 @@ export default function Home() {
       <Navbar />
       <main style={{ backgroundColor: '#0a0a0a', minHeight: '100vh' }}>
         <HeroSection />
+        <AboutMeSection />
         <SkillSection />
         <ProjectSection />
         <ContactSection />

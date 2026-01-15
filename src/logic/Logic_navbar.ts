@@ -2,11 +2,11 @@
 import { Variants } from 'framer-motion';
 
 export const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Project', href: '#project' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Experience', href: '/experience' },
+  { name: 'Project', href: '/project' },
+  { name: 'Contact', href: '/contact' },
 ];
 
 export const navVariants: Variants = {

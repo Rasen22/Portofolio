@@ -1,20 +1,22 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Project', href: '#project' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Experience', href: '/experience' },
+  { name: 'Project', href: '/project' },
+  { name: 'Contact', href: '/contact' },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState('Home');
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,9 +26,9 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLinkClick = (name: string) => {
-    setActiveLink(name);
-    setIsMenuOpen(false);
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
   };
 
   return (
@@ -64,13 +66,12 @@ export default function Navbar() {
       >
         {navLinks.map((link) => (
           <li key={link.name} style={{ position: 'relative' }}>
-            <a
+            <Link
               href={link.href}
-              onClick={() => handleLinkClick(link.name)}
               style={{
                 display: 'block',
                 padding: '8px 16px',
-                color: activeLink === link.name ? '#FF7A30' : '#E9E3DF',
+                color: isActive(link.href) ? '#FF7A30' : '#E9E3DF',
                 fontSize: '14px',
                 fontWeight: 500,
                 textDecoration: 'none',
@@ -78,19 +79,19 @@ export default function Navbar() {
                 transition: 'color 0.3s ease',
               }}
               onMouseEnter={(e) => {
-                if (activeLink !== link.name) {
+                if (!isActive(link.href)) {
                   e.currentTarget.style.color = '#FF7A30';
                 }
               }}
               onMouseLeave={(e) => {
-                if (activeLink !== link.name) {
+                if (!isActive(link.href)) {
                   e.currentTarget.style.color = '#E9E3DF';
                 }
               }}
             >
               {link.name}
-            </a>
-            {activeLink === link.name && (
+            </Link>
+            {isActive(link.href) && (
               <motion.div
                 layoutId="activeUnderline"
                 style={{
@@ -186,25 +187,25 @@ export default function Navbar() {
           >
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
-                  onClick={() => handleLinkClick(link.name)}
+                  onClick={() => setIsMenuOpen(false)}
                   style={{
                     display: 'block',
                     padding: '12px',
-                    color: activeLink === link.name ? '#FF7A30' : '#E9E3DF',
+                    color: isActive(link.href) ? '#FF7A30' : '#E9E3DF',
                     fontSize: '16px',
                     fontWeight: 500,
                     textDecoration: 'none',
                     textAlign: 'center',
                     borderRadius: '8px',
-                    backgroundColor: activeLink === link.name ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
+                    backgroundColor: isActive(link.href) ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
                     transition: 'all 0.3s ease',
                   }}
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
             </div>
           </motion.div>
