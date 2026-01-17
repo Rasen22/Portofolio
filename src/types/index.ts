@@ -1,5 +1,8 @@
 // Types for Portfolio Website
 
+// Experience
+export * from './experience';
+
 // Navigation
 export interface NavItem {
   label: string;
@@ -91,3 +94,6 @@ export interface AnimationVariant {
 
 // About Me Section (Profile Singkat)
 export * from './aboutMe';
+
+// Project Types
+export * from './project';

@@ -45,8 +45,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className="dark">
-      <body className="min-h-screen bg-background text-primary antialiased">
-        {children}
+      <body className="min-h-screen bg-background text-primary antialiased flex flex-col">
+        <div className="flex-grow flex flex-col">
+          {children}
+        </div>
       </body>
     </html>
   );

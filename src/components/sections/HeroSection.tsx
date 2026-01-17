@@ -6,8 +6,8 @@ import Image from 'next/image';
 const heroData = {
   badge: 'OPEN TO WORK',
   greeting: "Hi, I'm",
-  name: 'Farhan...',
-  role: 'Crafting digital experiences as a UI/UX & Front-end Developer.',
+  name: 'Farhan Rasendriya',
+  role: 'UI/UX & Front-end Developer.',
   buttons: {
     download: 'DOWNLOAD CV',
     contact: 'CONTACT ME',

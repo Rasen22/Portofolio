@@ -6,5 +6,7 @@ export { heroData, heroVariants, itemVariants, photoVariants, boxVariants } from
 export { aboutData, useAboutLogic } from './Logic_about';
 export { aboutMeData, useAboutMeLogic } from './Logic_aboutMe';
 export { skillData } from './Logic_skill';
-export { projectData } from './Logic_project';
+export { projectData, filterProjects, getProjectById, useProjectLogic } from './Logic_project';
+export type { Project, ProjectFilter, ProjectTool, ProjectStat, ProjectGalleryImage } from './Logic_project';
 export { contactData } from './Logic_contact';
+export { timelineData, timelineAnimations, useExperienceLogic } from './Logic_experience';
