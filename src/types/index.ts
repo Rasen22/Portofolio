@@ -3,6 +3,12 @@
 // Experience
 export * from './experience';
 
+// Footer
+export * from './footer';
+
+// Contact Page
+export * from './contact';
+
 // Navigation
 export interface NavItem {
   label: string;

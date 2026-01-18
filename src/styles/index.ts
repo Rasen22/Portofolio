@@ -10,3 +10,4 @@ export { projectDetailStyles } from './Style_projectDetail';
 export { contactStyles } from './Style_contact';
 export { footerStyles } from './Style_footer';
 export { experienceStyles } from './Style_experience';
+export { contactPageStyles, contactPageMobileStyles } from './Style_contactPage';

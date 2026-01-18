@@ -6,7 +6,6 @@ import {
   AboutMeSection,
   SkillSection,
   ProjectSection,
-  ContactSection,
 } from '@/components/sections';
 
 export default function Home() {
@@ -18,7 +17,6 @@ export default function Home() {
         <AboutMeSection />
         <SkillSection />
         <ProjectSection />
-        <ContactSection />
       </main>
       <Footer />
     </>

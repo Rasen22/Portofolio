@@ -187,36 +187,6 @@ export default function AboutPage() {
                 </p>
               </motion.div>
             </div>
-
-            {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.4 }}
-              style={styles.socialSection}
-            >
-              {aboutData.socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.url}
-                  style={styles.socialLink}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#FF7A30')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(233, 227, 223, 0.5)')}
-                >
-                  {social.name}
-                </a>
-              ))}
-            </motion.div>
-
-            {/* Footer */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.4 }}
-              style={styles.footer}
-            >
-              {aboutData.footer}
-            </motion.div>
           </motion.div>
         </section>
       </main>
