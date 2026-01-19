@@ -3,7 +3,8 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import Image from 'next/image';
-import { skillData } from '@/logic/Logic_skill';
+import { skillData, sectionVariants, headerVariants, circleVariants, type SkillCategory, type SkillItem } from '@/logic/Logic_skill';
+import { skillInlineStyles as styles, skillGlobalCSS } from '@/styles/Style_skill';
 
 export default function SkillSection() {
   const { ref, inView } = useInView({
@@ -12,77 +13,33 @@ export default function SkillSection() {
   });
 
   return (
-    <section
-      id="about"
-      style={{
-        padding: '80px 24px',
-        backgroundColor: '#0a0a0a',
-      }}
-    >
+    <section id="about" style={styles.section}>
       <motion.div
         ref={ref}
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.6 }}
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-        }}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={inView ? 'visible' : 'hidden'}
+        style={styles.container}
       >
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-          style={{
-            textAlign: 'center',
-            marginBottom: '48px',
-          }}
+          variants={headerVariants}
+          style={styles.header}
         >
-          <span
-            style={{
-              display: 'inline-block',
-              color: 'rgba(233, 227, 223, 0.5)',
-              fontSize: '14px',
-              fontWeight: 500,
-              marginBottom: '8px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-            }}
-          >
+          <span style={styles.badge}>
             {skillData.badge}
           </span>
-          <h2
-            style={{
-              fontSize: '42px',
-              fontWeight: 700,
-              color: '#E9E3DF',
-              margin: '0 0 12px 0',
-            }}
-          >
+          <h2 style={styles.title}>
             {skillData.title}
           </h2>
-          <p
-            style={{
-              color: 'rgba(233, 227, 223, 0.5)',
-              fontSize: '14px',
-              margin: 0,
-            }}
-          >
+          <p style={styles.subtitle}>
             {skillData.subtitle}
           </p>
         </motion.div>
 
         {/* Skills Categories */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '48px',
-          }}
-          className="skills-grid"
-        >
-          {skillData.categories.map((category, catIndex) => (
+        <div style={styles.skillsGrid} className="skills-grid">
+          {skillData.categories.map((category: SkillCategory, catIndex: number) => (
             <motion.div
               key={catIndex}
               initial={{ opacity: 0, y: 30 }}
@@ -90,86 +47,38 @@ export default function SkillSection() {
               transition={{ duration: 0.5, delay: catIndex * 0.2 }}
             >
               {/* Category Title */}
-              <h3
-                style={{
-                  color: '#E9E3DF',
-                  fontSize: '16px',
-                  fontWeight: 600,
-                  marginBottom: '24px',
-                  textAlign: 'center',
-                }}
-              >
+              <h3 style={styles.categoryTitle}>
                 {category.title}
               </h3>
 
               {/* Skills Grid */}
-              <div
-                style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'center',
-                  gap: '24px',
-                }}
-              >
-                {category.skills.map((skill, skillIndex) => (
+              <div style={styles.skillsContainer}>
+                {category.skills.map((skill: SkillItem, skillIndex: number) => (
                   <motion.div
                     key={skillIndex}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                    transition={{
-                      duration: 0.3,
-                      delay: catIndex * 0.2 + skillIndex * 0.1,
-                    }}
+                    variants={circleVariants}
+                    custom={skillIndex}
+                    initial="hidden"
+                    animate={inView ? 'visible' : 'hidden'}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      gap: '12px',
-                      cursor: 'pointer',
-                    }}
+                    style={styles.skillItem}
                   >
                     {/* Circle with Icon */}
-                    <div
-                      style={{
-                        width: '72px',
-                        height: '72px',
-                        borderRadius: '50%',
-                        border: '2px solid #FF7A30',
-                        backgroundColor: 'rgba(255, 122, 48, 0.1)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        overflow: 'hidden',
-                        transition: 'all 0.3s ease',
-                      }}
-                    >
+                    <div style={styles.skillCircle}>
                       <Image
                         src={skill.icon}
                         alt={skill.name}
                         width={36}
                         height={36}
-                        style={{
-                          objectFit: 'contain',
-                        }}
+                        style={styles.skillIcon}
                         onError={(e) => {
-                          // Show placeholder if image not found
                           e.currentTarget.style.display = 'none';
                         }}
                       />
                     </div>
                     {/* Label */}
-                    <span
-                      style={{
-                        color: 'rgba(233, 227, 223, 0.7)',
-                        fontSize: '11px',
-                        fontWeight: 500,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                        textAlign: 'center',
-                      }}
-                    >
+                    <span style={styles.skillLabel}>
                       {skill.name}
                     </span>
                   </motion.div>
@@ -180,13 +89,7 @@ export default function SkillSection() {
         </div>
       </motion.div>
 
-      <style jsx>{`
-        @media (max-width: 768px) {
-          .skills-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
+      <style jsx global>{skillGlobalCSS}</style>
     </section>
   );
 }

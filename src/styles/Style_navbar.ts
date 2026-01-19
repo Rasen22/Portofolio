@@ -1,5 +1,232 @@
 // Navbar Styles
+import type { CSSProperties } from 'react';
 
+// Inline Styles for Navbar (JS Object format)
+export const navbarInlineStyles = {
+  nav: (isScrolled: boolean): CSSProperties => ({
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
+    display: 'flex',
+    justifyContent: 'center',
+    padding: isScrolled ? '12px 0' : '16px 0',
+    transition: 'all 0.3s ease',
+  }),
+
+  desktopMenu: {
+    display: 'none',
+    alignItems: 'center',
+    gap: '4px',
+    padding: '6px 8px',
+    backgroundColor: 'rgba(26, 26, 26, 0.9)',
+    backdropFilter: 'blur(12px)',
+    border: '1px solid rgba(51, 51, 51, 0.5)',
+    borderRadius: '9999px',
+    listStyle: 'none',
+    margin: 0,
+  } as CSSProperties,
+
+  menuItem: {
+    position: 'relative',
+  } as CSSProperties,
+
+  menuLink: (isActive: boolean): CSSProperties => ({
+    display: 'block',
+    padding: '8px 16px',
+    color: isActive ? '#FF7A30' : '#E9E3DF',
+    fontSize: '14px',
+    fontWeight: 500,
+    textDecoration: 'none',
+    borderRadius: '9999px',
+    transition: 'color 0.3s ease',
+  }),
+
+  activeUnderline: {
+    position: 'absolute',
+    bottom: '4px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    height: '2px',
+    width: '50%',
+    backgroundColor: 'rgba(255, 122, 48, 0.7)',
+    borderRadius: '9999px',
+  } as CSSProperties,
+
+  // Dropdown styles
+  dropdown: {
+    position: 'absolute',
+    top: 'calc(100% + 12px)',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '380px',
+    backgroundColor: 'rgba(26, 26, 26, 0.98)',
+    backdropFilter: 'blur(16px)',
+    borderRadius: '16px',
+    border: '1px solid rgba(51, 51, 51, 0.5)',
+    padding: '16px',
+    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.5)',
+  } as CSSProperties,
+
+  dropdownHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '16px',
+    paddingBottom: '12px',
+    borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+  } as CSSProperties,
+
+  dropdownTitle: {
+    fontSize: '14px',
+    fontWeight: 600,
+    color: '#E9E3DF',
+    margin: 0,
+  } as CSSProperties,
+
+  dropdownViewAll: {
+    fontSize: '12px',
+    color: '#FF7A30',
+    textDecoration: 'none',
+    fontWeight: 500,
+  } as CSSProperties,
+
+  dropdownGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: '12px',
+    maxHeight: '320px',
+    overflowY: 'auto',
+  } as CSSProperties,
+
+  dropdownProjectCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    borderRadius: '12px',
+    overflow: 'hidden',
+    textDecoration: 'none',
+    transition: 'all 0.3s ease',
+  } as CSSProperties,
+
+  dropdownProjectImage: {
+    position: 'relative',
+    width: '100%',
+    height: '70px',
+    backgroundColor: '#1a1a1a',
+  } as CSSProperties,
+
+  dropdownProjectStatus: (status: string): CSSProperties => ({
+    position: 'absolute',
+    top: '6px',
+    left: '6px',
+    padding: '2px 6px',
+    backgroundColor: status === 'completed' ? 'rgba(74, 222, 128, 0.9)' : 'rgba(255, 122, 48, 0.9)',
+    color: '#fff',
+    fontSize: '8px',
+    fontWeight: 600,
+    textTransform: 'uppercase',
+    letterSpacing: '0.03em',
+    borderRadius: '3px',
+  }),
+
+  dropdownProjectInfo: {
+    padding: '10px',
+  } as CSSProperties,
+
+  dropdownProjectTitle: {
+    fontSize: '11px',
+    fontWeight: 600,
+    color: '#E9E3DF',
+    margin: '0 0 2px 0',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  } as CSSProperties,
+
+  dropdownProjectCategory: {
+    fontSize: '9px',
+    color: 'rgba(233, 227, 223, 0.5)',
+    margin: 0,
+  } as CSSProperties,
+
+  // Mobile Menu Button
+  mobileMenuButton: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '12px',
+    backgroundColor: 'rgba(26, 26, 26, 0.9)',
+    backdropFilter: 'blur(12px)',
+    border: '1px solid rgba(51, 51, 51, 0.5)',
+    borderRadius: '9999px',
+    cursor: 'pointer',
+    color: '#E9E3DF',
+  } as CSSProperties,
+
+  hamburgerLine: (isOpen: boolean, position: 'top' | 'middle' | 'bottom'): CSSProperties => {
+    const base: CSSProperties = {
+      display: 'block',
+      width: '20px',
+      height: '2px',
+      backgroundColor: 'currentColor',
+      transition: 'all 0.3s ease',
+    };
+
+    if (position === 'top') {
+      return {
+        ...base,
+        transform: isOpen ? 'rotate(45deg) translateY(6px)' : 'none',
+      };
+    }
+    if (position === 'middle') {
+      return {
+        ...base,
+        marginTop: '6px',
+        opacity: isOpen ? 0 : 1,
+      };
+    }
+    return {
+      ...base,
+      marginTop: '6px',
+      transform: isOpen ? 'rotate(-45deg) translateY(-6px)' : 'none',
+    };
+  },
+
+  // Mobile Menu
+  mobileMenu: {
+    position: 'fixed',
+    top: '64px',
+    left: '16px',
+    right: '16px',
+    padding: '16px',
+    backgroundColor: 'rgba(26, 26, 26, 0.95)',
+    backdropFilter: 'blur(12px)',
+    borderRadius: '16px',
+    border: '1px solid rgba(51, 51, 51, 0.5)',
+  } as CSSProperties,
+
+  mobileMenuInner: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+  } as CSSProperties,
+
+  mobileMenuLink: (isActive: boolean): CSSProperties => ({
+    display: 'block',
+    padding: '12px',
+    color: isActive ? '#FF7A30' : '#E9E3DF',
+    fontSize: '16px',
+    fontWeight: 500,
+    textDecoration: 'none',
+    textAlign: 'center',
+    borderRadius: '8px',
+    backgroundColor: isActive ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
+    transition: 'all 0.3s ease',
+  }),
+};
+
+// Tailwind class-based styles (for convenience)
 export const navbarStyles = {
   nav: `fixed top-0 left-0 right-0 z-[100] flex justify-center pt-4 pb-4`,
   navScrolled: `pt-3 pb-3`,
@@ -24,5 +251,16 @@ export const navbarStyles = {
   mobileMenuLink: `block text-[#E9E3DF] hover:text-[#FF7A30] transition-all duration-300 text-base font-medium py-3 text-center rounded-lg hover:bg-white/5`,
   mobileMenuLinkActive: `text-[#FF7A30] bg-white/5`,
 };
+
+// Global CSS for hover effects
+export const navbarGlobalCSS = `
+  .dropdown-view-all:hover {
+    text-decoration: underline;
+  }
+  .dropdown-project-card:hover {
+    background-color: rgba(255, 122, 48, 0.1) !important;
+    transform: translateY(-2px);
+  }
+`;
 
 export default navbarStyles;

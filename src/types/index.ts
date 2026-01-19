@@ -103,3 +103,9 @@ export * from './aboutMe';
 
 // Project Types
 export * from './project';
+
+// Navbar Types
+export * from './navbar';
+
+// Hero Types
+export * from './hero';

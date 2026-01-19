@@ -1,19 +1,20 @@
 // Hero Logic
 import { Variants } from 'framer-motion';
+import type { HeroData } from '@/types';
 
-export const heroData = {
+export const heroData: HeroData = {
   badge: 'OPEN TO WORK',
   greeting: "Hi, I'm",
-  name: 'Farhan...',
-  role: 'Crafting digital experiences as a UI/UX & Front-end Developer.',
+  name: 'Farhan Rasendriya',
+  role: 'UI/UX & Front-end Developer.',
   buttons: {
     download: 'DOWNLOAD CV',
     contact: 'CONTACT ME',
   },
   stats: [
-    { value: '5+', label: 'Projects' },
-    { value: '10+', label: 'Technical Skills' },
-    { value: '3+', label: 'Years Experience' },
+    { value: '5+', label: 'Projects', icon: '📁' },
+    { value: '10+', label: 'Technical Skills', icon: '💻' },
+    { value: '3+', label: 'Years Experience', icon: '⚡' },
   ],
 };
 

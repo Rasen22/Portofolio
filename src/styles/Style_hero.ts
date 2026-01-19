@@ -1,5 +1,200 @@
 // Hero Section Styles
+import type { CSSProperties } from 'react';
 
+// Inline Styles for Hero Section (JS Object format)
+export const heroInlineStyles = {
+  section: {
+    minHeight: '100vh',
+    padding: '100px 24px 64px',
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: '#0a0a0a',
+  } as CSSProperties,
+
+  container: {
+    maxWidth: '1280px',
+    margin: '0 auto',
+    width: '100%',
+  } as CSSProperties,
+
+  mainGrid: {
+    display: 'grid',
+    gridTemplateColumns: '1fr auto',
+    gap: '64px',
+    alignItems: 'center',
+  } as CSSProperties,
+
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  } as CSSProperties,
+
+  badge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding: '6px 16px',
+    borderRadius: '6px',
+    backgroundColor: '#1a1a1a',
+    border: '1px solid #333',
+    color: 'rgba(233, 227, 223, 0.7)',
+    fontSize: '10px',
+    fontWeight: 600,
+    letterSpacing: '0.2em',
+    textTransform: 'uppercase',
+  } as CSSProperties,
+
+  greeting: {
+    fontSize: 'clamp(48px, 8vw, 72px)',
+    fontWeight: 700,
+    color: '#E9E3DF',
+    lineHeight: 1.1,
+    margin: 0,
+  } as CSSProperties,
+
+  nameAccent: {
+    color: '#FF7A30',
+  } as CSSProperties,
+
+  role: {
+    color: 'rgba(233, 227, 223, 0.5)',
+    fontSize: '14px',
+    maxWidth: '480px',
+    lineHeight: 1.6,
+    margin: 0,
+  } as CSSProperties,
+
+  buttonGroup: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '16px',
+    paddingTop: '8px',
+  } as CSSProperties,
+
+  btnDownload: {
+    padding: '14px 24px',
+    backgroundColor: '#FF7A30',
+    color: '#0a0a0a',
+    fontSize: '11px',
+    fontWeight: 700,
+    borderRadius: '8px',
+    border: 'none',
+    cursor: 'pointer',
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    transition: 'all 0.3s ease',
+  } as CSSProperties,
+
+  btnContact: {
+    padding: '14px 24px',
+    backgroundColor: 'transparent',
+    color: '#E9E3DF',
+    fontSize: '11px',
+    fontWeight: 700,
+    borderRadius: '8px',
+    border: '1px solid #444',
+    cursor: 'pointer',
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    transition: 'all 0.3s ease',
+  } as CSSProperties,
+
+  // Stats Section
+  statsWrapper: {
+    paddingTop: '48px',
+    marginTop: '32px',
+  } as CSSProperties,
+
+  statsGrid: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    gap: '16px',
+  } as CSSProperties,
+
+  statItem: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: '16px',
+    padding: '16px 24px',
+    backgroundColor: 'rgba(20, 20, 20, 0.8)',
+    border: '1px solid #2a2a2a',
+    borderRadius: '12px',
+  } as CSSProperties,
+
+  statIcon: {
+    width: '40px',
+    height: '40px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255, 122, 48, 0.15)',
+    borderRadius: '8px',
+    fontSize: '18px',
+  } as CSSProperties,
+
+  statIconText: {
+    color: '#FF7A30',
+  } as CSSProperties,
+
+  statValue: {
+    fontSize: '20px',
+    fontWeight: 700,
+    color: '#E9E3DF',
+  } as CSSProperties,
+
+  statLabel: {
+    fontSize: '11px',
+    color: 'rgba(233, 227, 223, 0.5)',
+    marginTop: '2px',
+  } as CSSProperties,
+
+  // Photo Card Side (Right)
+  photoWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  } as CSSProperties,
+
+  photoCard: {
+    position: 'relative',
+    width: '340px',
+    height: '420px',
+    borderRadius: '16px',
+  } as CSSProperties,
+
+  photoGlowOuter: {
+    position: 'absolute',
+    inset: '-8px',
+    background: 'linear-gradient(135deg, rgba(10, 77, 140, 0.3), rgba(30, 107, 184, 0.2), rgba(10, 77, 140, 0.3))',
+    borderRadius: '24px',
+    filter: 'blur(24px)',
+    zIndex: -1,
+  } as CSSProperties,
+
+  photoCardInner: {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    background: 'linear-gradient(135deg, #1a3a5c, #0d2840, #071a2b)',
+    borderRadius: '16px',
+    overflow: 'hidden',
+    border: '1px solid rgba(30, 73, 118, 0.3)',
+  } as CSSProperties,
+
+  photoImage: {
+    objectFit: 'cover',
+    objectPosition: 'center',
+  } as CSSProperties,
+
+  photoGlow: {
+    position: 'absolute',
+    inset: 0,
+    background: 'linear-gradient(to top, rgba(10, 77, 140, 0.3), transparent, transparent)',
+  } as CSSProperties,
+};
+
+// Tailwind class-based styles (for convenience)
 export const heroStyles = {
   section: `min-h-screen pt-24 pb-16 px-6 sm:px-8 lg:px-12 flex items-center bg-[#0a0a0a]`,
   container: `max-w-7xl mx-auto w-full`,
@@ -35,5 +230,15 @@ export const heroStyles = {
   statLabel: `text-[10px] text-[#E9E3DF]/40 mt-1 tracking-wider uppercase`,
   statDivider: `w-px h-10 bg-[#333]`,
 };
+
+// Global CSS for responsive
+export const heroGlobalCSS = `
+  @media (max-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 1fr !important;
+      gap: 48px !important;
+    }
+  }
+`;
 
 export default heroStyles;
