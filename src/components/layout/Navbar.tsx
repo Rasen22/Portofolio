@@ -7,7 +7,6 @@ import { projectData } from '@/logic/Logic_project';
 import {
   navLinks,
   dropdownVariants,
-  mobileMenuVariants,
   dropdownData,
   useNavbarLogic,
 } from '@/logic/Logic_navbar';
@@ -18,53 +17,74 @@ export default function Navbar() {
     isScrolled,
     isMenuOpen,
     isProjectDropdownOpen,
-    setIsMenuOpen,
     setIsProjectDropdownOpen,
     dropdownRef,
     isActive,
+    // GSAP related
+    navItemsRef,
+    hamburgerRef,
+    mobileMenuRef,
+    handlePillEnter,
+    handlePillLeave,
+    toggleMobileMenu,
+    setCircleRef,
   } = useNavbarLogic();
 
   return (
     <nav style={styles.nav(isScrolled)}>
       {/* Desktop Menu */}
       <motion.ul
+        ref={navItemsRef}
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         style={styles.desktopMenu}
         className="md:!flex"
       >
-        {navLinks.map((link) => (
+        {navLinks.map((link, index) => (
           <li
             key={link.name}
             ref={link.hasDropdown ? dropdownRef : null}
             style={styles.menuItem}
-            onMouseEnter={() => link.hasDropdown && setIsProjectDropdownOpen(true)}
-            onMouseLeave={() => link.hasDropdown && setIsProjectDropdownOpen(false)}
+            onMouseEnter={() => {
+              handlePillEnter(index);
+              if (link.hasDropdown) setIsProjectDropdownOpen(true);
+            }}
+            onMouseLeave={() => {
+              handlePillLeave(index);
+              if (link.hasDropdown) setIsProjectDropdownOpen(false);
+            }}
           >
             <Link
               href={link.href}
-              style={styles.menuLink(isActive(link.href))}
-              onMouseEnter={(e) => {
-                if (!isActive(link.href)) {
-                  e.currentTarget.style.color = '#FF7A30';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!isActive(link.href)) {
-                  e.currentTarget.style.color = '#E9E3DF';
-                }
-              }}
+              style={styles.pillLink(isActive(link.href))}
             >
-              {link.name}
-            </Link>
-            {isActive(link.href) && (
-              <motion.div
-                layoutId="activeUnderline"
-                style={styles.activeUnderline}
-                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+              {/* Hover circle that expands from bottom */}
+              <span
+                ref={setCircleRef(index)}
+                style={styles.hoverCircle}
+                aria-hidden="true"
               />
-            )}
+              
+              {/* Label stack */}
+              <span style={styles.labelStack}>
+                <span className="pill-label" style={styles.pillLabel}>
+                  {link.name}
+                </span>
+                <span 
+                  className="pill-label-hover" 
+                  style={styles.pillLabelHover}
+                  aria-hidden="true"
+                >
+                  {link.name}
+                </span>
+              </span>
+
+              {/* Active indicator */}
+              {isActive(link.href) && (
+                <span style={styles.activeIndicator} aria-hidden="true" />
+              )}
+            </Link>
 
             {/* Project Dropdown */}
             {link.hasDropdown && (
@@ -134,44 +154,46 @@ export default function Navbar() {
         ))}
       </motion.ul>
 
-      {/* Mobile Menu Button */}
+      {/* Mobile Menu Button - GSAP animated */}
       <button
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        ref={hamburgerRef}
+        onClick={toggleMobileMenu}
         aria-label="Toggle menu"
+        aria-expanded={isMenuOpen}
         style={styles.mobileMenuButton}
         className="md:!hidden"
       >
-        <span style={styles.hamburgerLine(isMenuOpen, 'top')} />
-        <span style={styles.hamburgerLine(isMenuOpen, 'middle')} />
-        <span style={styles.hamburgerLine(isMenuOpen, 'bottom')} />
+        <span className="hamburger-line" style={styles.hamburgerLineGsap} />
+        <span className="hamburger-line" style={styles.hamburgerLineGsap} />
       </button>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            variants={mobileMenuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            style={styles.mobileMenu}
-            className="md:!hidden"
-          >
-            <div style={styles.mobileMenuInner}>
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  style={styles.mobileMenuLink(isActive(link.href))}
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Mobile Menu - GSAP animated */}
+      <div
+        ref={mobileMenuRef}
+        style={styles.mobileMenu}
+        className="md:!hidden"
+      >
+        <div style={styles.mobileMenuInner}>
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              onClick={toggleMobileMenu}
+              style={styles.mobileMenuLink(isActive(link.href))}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(26, 26, 26, 0.9)';
+                e.currentTarget.style.color = '#FF7A30';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#0a0a0a';
+                e.currentTarget.style.color = isActive(link.href) ? '#FF7A30' : '#E9E3DF';
+              }}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+      </div>
 
       <style jsx global>{navbarGlobalCSS}</style>
     </nav>

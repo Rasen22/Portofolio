@@ -18,18 +18,97 @@ export const navbarInlineStyles = {
   desktopMenu: {
     display: 'none',
     alignItems: 'center',
-    gap: '4px',
-    padding: '6px 8px',
+    gap: '3px',
+    padding: '3px',
     backgroundColor: 'rgba(26, 26, 26, 0.9)',
     backdropFilter: 'blur(12px)',
     border: '1px solid rgba(51, 51, 51, 0.5)',
     borderRadius: '9999px',
     listStyle: 'none',
     margin: 0,
+    height: '42px',
   } as CSSProperties,
 
   menuItem: {
     position: 'relative',
+    display: 'flex',
+    height: '100%',
+  } as CSSProperties,
+
+  // New Pill-style menu link - transparent background (circle appears on hover)
+  pillLink: (isActive: boolean): CSSProperties => ({
+    position: 'relative',
+    overflow: 'hidden',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    padding: '0 18px',
+    backgroundColor: 'transparent',
+    color: '#E9E3DF',
+    fontSize: '13px',
+    fontWeight: 600,
+    textDecoration: 'none',
+    borderRadius: '9999px',
+    textTransform: 'uppercase',
+    letterSpacing: '0.2px',
+    whiteSpace: 'nowrap',
+    cursor: 'pointer',
+    lineHeight: 0,
+  }),
+
+  // Hover circle that expands from bottom
+  hoverCircle: {
+    position: 'absolute',
+    left: '50%',
+    bottom: 0,
+    borderRadius: '50%',
+    zIndex: 1,
+    display: 'block',
+    pointerEvents: 'none',
+    backgroundColor: '#FF7A30',
+    willChange: 'transform',
+  } as CSSProperties,
+
+  // Label stack container
+  labelStack: {
+    position: 'relative',
+    display: 'inline-block',
+    lineHeight: 1,
+    zIndex: 2,
+  } as CSSProperties,
+
+  // Default label
+  pillLabel: {
+    position: 'relative',
+    zIndex: 2,
+    display: 'inline-block',
+    lineHeight: 1,
+    willChange: 'transform',
+  } as CSSProperties,
+
+  // Hover label (slides in from bottom)
+  pillLabelHover: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    zIndex: 3,
+    display: 'inline-block',
+    color: '#0a0a0a',
+    willChange: 'transform, opacity',
+  } as CSSProperties,
+
+  // Active indicator - underline style
+  activeIndicator: {
+    position: 'absolute',
+    left: '50%',
+    bottom: '2px',
+    transform: 'translateX(-50%)',
+    width: '60%',
+    height: '2px',
+    borderRadius: '9999px',
+    backgroundColor: '#FF7A30',
+    zIndex: 4,
   } as CSSProperties,
 
   menuLink: (isActive: boolean): CSSProperties => ({
@@ -155,13 +234,27 @@ export const navbarInlineStyles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '12px',
+    gap: '6px',
+    width: '42px',
+    height: '42px',
+    padding: 0,
     backgroundColor: 'rgba(26, 26, 26, 0.9)',
     backdropFilter: 'blur(12px)',
     border: '1px solid rgba(51, 51, 51, 0.5)',
     borderRadius: '9999px',
     cursor: 'pointer',
     color: '#E9E3DF',
+  } as CSSProperties,
+
+  // GSAP hamburger lines (2 lines that animate to X)
+  hamburgerLineGsap: {
+    display: 'block',
+    width: '16px',
+    height: '2px',
+    backgroundColor: '#E9E3DF',
+    borderRadius: '2px',
+    transformOrigin: 'center',
+    transition: 'none', // GSAP handles animation
   } as CSSProperties,
 
   hamburgerLine: (isOpen: boolean, position: 'top' | 'middle' | 'bottom'): CSSProperties => {
@@ -199,30 +292,33 @@ export const navbarInlineStyles = {
     top: '64px',
     left: '16px',
     right: '16px',
-    padding: '16px',
+    padding: '3px',
     backgroundColor: 'rgba(26, 26, 26, 0.95)',
     backdropFilter: 'blur(12px)',
-    borderRadius: '16px',
+    borderRadius: '27px',
     border: '1px solid rgba(51, 51, 51, 0.5)',
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+    visibility: 'hidden',
+    opacity: 0,
   } as CSSProperties,
 
   mobileMenuInner: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '4px',
+    gap: '3px',
   } as CSSProperties,
 
   mobileMenuLink: (isActive: boolean): CSSProperties => ({
     display: 'block',
-    padding: '12px',
+    padding: '12px 16px',
     color: isActive ? '#FF7A30' : '#E9E3DF',
     fontSize: '16px',
     fontWeight: 500,
     textDecoration: 'none',
     textAlign: 'center',
-    borderRadius: '8px',
-    backgroundColor: isActive ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
-    transition: 'all 0.3s ease',
+    borderRadius: '50px',
+    backgroundColor: '#0a0a0a',
+    transition: 'all 0.2s ease',
   }),
 };
 

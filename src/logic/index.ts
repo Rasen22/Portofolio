@@ -1,7 +1,7 @@
 // Logic index - Export all logic modules
 // Import directly from specific files to avoid naming conflicts
 
-export { navLinks, navVariants, menuItemVariants } from './Logic_navbar';
+export { navLinks, dropdownVariants, dropdownData, gsapConfig, useNavbarLogic } from './Logic_navbar';
 export { heroData, heroVariants, itemVariants, photoVariants, boxVariants } from './Logic_hero';
 export { aboutData, useAboutLogic } from './Logic_about';
 export { aboutMeData, useAboutMeLogic } from './Logic_aboutMe';
