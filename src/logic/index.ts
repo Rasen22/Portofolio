@@ -12,3 +12,9 @@ export { contactData } from './Logic_contact';
 export { timelineData, timelineAnimations, useExperienceLogic } from './Logic_experience';
 export { socialLinks, footerData, useFooterLogic, socialHoverAnimation, socialTapAnimation } from './Logic_footer';
 export { contactPageData, pageAnimations, useContactForm, socialIconMap } from './Logic_contactPage';
+export { 
+  heroCardAnimation, 
+  aboutCardAnimation, 
+  cleanupScrollTriggers, 
+  refreshScrollTrigger 
+} from './Logic_scrollytelling';

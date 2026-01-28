@@ -510,7 +510,7 @@ export default function ExperiencePage() {
                 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span>📄</span>
+                <span></span>
                 Download CV
               </motion.button>
             </motion.header>
