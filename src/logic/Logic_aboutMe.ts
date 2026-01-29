@@ -7,7 +7,7 @@ export const aboutMeData: AboutMeData = {
   badge: 'ABOUT ME',
   title: 'PERSONAL PROFILE',
   description:
-    'A passionate and detail-oriented Front-end Developer & UI/UX Designer with over 3 years of experience in creating user-friendly and visually appealing digital experiences. I specialize in bringing ideas to life. My approach combines technical expertise with creative problem-solving to deliver high-quality solutions.',
+    'A dedicated and detail-oriented Front-end Developer & UI/UX Designer with experience in creating user-friendly digital experiences. As a semester 5 Information Systems student at Universitas Nasional (GPA: 3.88), I combine technical expertise in HTML, CSS, JavaScript, and Figma with creative problem-solving skills. My experience includes developing responsive website interfaces, designing intuitive user flows, and implementing digital solutions that enhance user experience. I specialize in transforming into visually appealing interfaces while maintaining strong collaboration with UI/UX teams to deliver high-quality, functional solutions.',
   image: '/Assets/Profile/profile.jpg',
   buttons: [
     {

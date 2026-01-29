@@ -79,7 +79,7 @@ export default function AboutPage() {
                   style={styles.detailsCard}
                 >
                   <div style={styles.detailsTitle}>
-                    <span style={styles.detailsIcon}>👤</span>
+                    <span style={styles.detailsIcon}></span>
                     {aboutData.personalDetails.title}
                   </div>
 

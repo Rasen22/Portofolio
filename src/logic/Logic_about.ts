@@ -11,12 +11,12 @@ export const aboutData = {
     highlight: 'Me',
   },
   experienceBadge: {
-    value: '5+',
+    value: '1+',
     label: 'Years of experience',
   },
   description: [
-    'I am a dedicated <highlight>UI/UX & Front-end Developer</highlight> with a passion for building beautiful, functional, and user-centered digital experiences. With a background that bridges the gap between design and code, I specialize in creating modern web applications using the latest technologies like Tailwind CSS, React, and Figma.',
-    'My approach focuses on accessibility, performance, and clean aesthetics. I believe that every pixel should serve a purpose, and every interaction should feel intuitive. Over the past 5 years, I\'ve helped startups and established brands transform their complex ideas into elegant, high-performing digital products.',
+    'I am a passionate UI/UX Designer and Front-end Developer currently pursuing my degree in Information Systems at Universitas Nasional (GPA: 3.88). With hands-on experience at Sagawa Group, I specialize in transforming design concepts into responsive, user-friendly web interfaces using HTML, CSS, and JavaScript. My workflow bridges visual design in Figma with clean front-end implementation, ensuring seamless collaboration between design and development teams.',
+    "I approach every project with attention to detail and a user-centered mindset—crafting intuitive interfaces that balance aesthetics with functionality. Through academic projects and professional experience, I've developed a structured approach to problem-solving, from designing responsive mockups and design systems to building interactive web components that enhance user experience.",
   ],
   quote: {
     text: '"Designing digital experiences that connect',
@@ -27,22 +27,22 @@ export const aboutData = {
     location: {
       icon: '📍',
       label: 'LOCATION',
-      value: 'San Francisco, CA',
+      value: 'Jakarta Selatan, ID',
     },
     education: {
       icon: '🎓',
       label: 'EDUCATION',
-      value: 'B.Sc. in Computer Science',
+      value: 'Universitas Nasional. Information System',
     },
     languages: {
       icon: '🌐',
       label: 'LANGUAGES',
-      value: 'English, Spanish, Arabic',
+      value: 'English',
     },
     interests: {
       icon: '💡',
       label: 'INTERESTS',
-      value: 'Photography, Open Source, Hiking',
+      value: 'Calesenic, Open Source, Video Editing',
     },
   },
   buttons: {
