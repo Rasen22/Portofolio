@@ -45,6 +45,7 @@ export const scrollytellingStyles = {
     alignItems: 'center',
     zIndex: 2,
     transformStyle: 'preserve-3d' as const,
+    pointerEvents: 'auto' as const,
   } as CSSProperties,
 
   // About section container
@@ -58,6 +59,7 @@ export const scrollytellingStyles = {
     alignItems: 'center',
     zIndex: 1,
     transformStyle: 'preserve-3d' as const,
+    pointerEvents: 'auto' as const,
   } as CSSProperties,
 
   // Hero photo card - animated element

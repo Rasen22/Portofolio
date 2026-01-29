@@ -64,6 +64,14 @@ export const useScrollytelling = (): UseScrollytellingReturn => {
       x: 80,
     });
 
+    // Get parent containers for pointer-events manipulation
+    const heroContainer = document.getElementById('scrolly-hero-container');
+    const aboutContainer = document.getElementById('scrolly-about-container');
+
+    // Set initial pointer-events state
+    if (heroContainer) heroContainer.style.pointerEvents = 'auto';
+    if (aboutContainer) aboutContainer.style.pointerEvents = 'none';
+
     // Create master timeline
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -73,6 +81,21 @@ export const useScrollytelling = (): UseScrollytellingReturn => {
         scrub: 1.5,
         pin: stickyRef.current,
         pinSpacing: false,
+        onUpdate: (self) => {
+          // Toggle pointer-events based on scroll progress
+          const progress = self.progress;
+          if (heroContainer && aboutContainer) {
+            if (progress < 0.4) {
+              // Hero section is active
+              heroContainer.style.pointerEvents = 'auto';
+              aboutContainer.style.pointerEvents = 'none';
+            } else {
+              // About section is active
+              heroContainer.style.pointerEvents = 'none';
+              aboutContainer.style.pointerEvents = 'auto';
+            }
+          }
+        },
       },
     });
 

@@ -17,7 +17,7 @@ export const aboutMeData: AboutMeData = {
     },
     {
       label: 'VIEW EXPERIENCE',
-      href: '#experience',
+      href: '/experience',
       variant: 'secondary',
     },
   ],

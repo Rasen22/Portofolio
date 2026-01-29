@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { heroData, itemVariants, photoVariants } from '@/logic/Logic_hero';
 import { heroInlineStyles as styles, heroGlobalCSS } from '@/styles/Style_hero';
 
@@ -53,30 +54,38 @@ export default function HeroSection() {
               animate="visible"
               style={styles.buttonGroup}
             >
-              <button
-                style={styles.btnDownload}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#ff8c4a';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#FF7A30';
-                }}
+              <a
+                href="/Assets/CV Farhan Rasendriya.pdf"
+                download="CV Farhan Rasendriya.pdf"
+                style={{ textDecoration: 'none' }}
               >
-                {heroData.buttons.download}
-              </button>
-              <button
-                style={styles.btnContact}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#FF7A30';
-                  e.currentTarget.style.color = '#FF7A30';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#444';
-                  e.currentTarget.style.color = '#E9E3DF';
-                }}
-              >
-                {heroData.buttons.contact}
-              </button>
+                <button
+                  style={styles.btnDownload}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#ff8c4a';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#FF7A30';
+                  }}
+                >
+                  {heroData.buttons.download}
+                </button>
+              </a>
+              <Link href="/contact" style={{ textDecoration: 'none' }}>
+                <button
+                  style={styles.btnContact}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = '#FF7A30';
+                    e.currentTarget.style.color = '#FF7A30';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = '#444';
+                    e.currentTarget.style.color = '#E9E3DF';
+                  }}
+                >
+                  {heroData.buttons.contact}
+                </button>
+              </Link>
             </motion.div>
 
             {/* Stats Section */}

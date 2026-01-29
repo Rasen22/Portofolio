@@ -29,7 +29,7 @@ export default function ScrollytellingSection() {
         <div style={scrollytellingStyles.contentWrapper}>
           
           {/* Hero Section Layer */}
-          <div style={{ ...scrollytellingStyles.heroContainer, padding: '100px 24px 64px' }}>
+          <div id="scrolly-hero-container" style={{ ...scrollytellingStyles.heroContainer, padding: '100px 24px 64px' }}>
             <div style={heroInlineStyles.container}>
               <div style={heroInlineStyles.mainGrid} className="scrollytelling-hero-grid">
                 
@@ -71,30 +71,38 @@ export default function ScrollytellingSection() {
                     animate="visible"
                     style={heroInlineStyles.buttonGroup}
                   >
-                    <button
-                      style={heroInlineStyles.btnDownload}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = '#ff8c4a';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = '#FF7A30';
-                      }}
+                    <a
+                      href="/Assets/CV Farhan Rasendriya.pdf"
+                      download="CV Farhan Rasendriya.pdf"
+                      style={{ textDecoration: 'none' }}
                     >
-                      {heroData.buttons.download}
-                    </button>
-                    <button
-                      style={heroInlineStyles.btnContact}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = '#FF7A30';
-                        e.currentTarget.style.color = '#FF7A30';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = '#444';
-                        e.currentTarget.style.color = '#E9E3DF';
-                      }}
-                    >
-                      {heroData.buttons.contact}
-                    </button>
+                      <button
+                        style={heroInlineStyles.btnDownload}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = '#ff8c4a';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = '#FF7A30';
+                        }}
+                      >
+                        {heroData.buttons.download}
+                      </button>
+                    </a>
+                    <Link href="/contact" style={{ textDecoration: 'none' }}>
+                      <button
+                        style={heroInlineStyles.btnContact}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = '#FF7A30';
+                          e.currentTarget.style.color = '#FF7A30';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = '#444';
+                          e.currentTarget.style.color = '#E9E3DF';
+                        }}
+                      >
+                        {heroData.buttons.contact}
+                      </button>
+                    </Link>
                   </motion.div>
 
                   {/* Stats */}
@@ -151,7 +159,7 @@ export default function ScrollytellingSection() {
           </div>
 
           {/* About Section Layer */}
-          <div style={{ ...scrollytellingStyles.aboutContainer, padding: '80px 24px' }}>
+          <div id="scrolly-about-container" style={{ ...scrollytellingStyles.aboutContainer, padding: '80px 24px' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
               <div 
                 style={{ 
