@@ -91,20 +91,6 @@ export default function ProjectDetailPage() {
                   <p style={styles.description}>
                     {project.fullDescription}
                   </p>
-                  <p style={{ ...styles.description, marginTop: '16px' }}>
-                    My journey started with a fascination for how design can influence user
-                    behavior. This passion led me to master the intricacies of{' '}
-                    <span style={styles.descriptionHighlight}>User Interface (UI)</span> and{' '}
-                    <span style={styles.descriptionHighlight}>User Experience (UX)</span> design,
-                    which I now complement with robust{' '}
-                    <span style={styles.descriptionHighlight}>Front-end Development</span> skills.
-                  </p>
-                  <p style={{ ...styles.description, marginTop: '16px' }}>
-                    I believe that great design is invisible - it just works. Whether I&apos;m wireframing
-                    a complex SaaS dashboard or writing clean, modular CSS/HTML code, my
-                    focus is always on the end user. I strive to build products that solve real
-                    problems and leave a lasting impression.
-                  </p>
 
                   {/* Stats */}
                   <div style={styles.statsGrid}>
