@@ -125,7 +125,7 @@ export default function ProjectPage() {
       window.removeEventListener('resize', onResize);
       clearTimeout(timer);
     };
-  }, []);
+  }, [activeFilter]);
 
   // Handle hover enter
   const handlePillEnter = useCallback((index: number) => {
