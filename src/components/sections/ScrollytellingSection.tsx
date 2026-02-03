@@ -141,14 +141,11 @@ export default function ScrollytellingSection() {
                     <div style={heroInlineStyles.photoGlowOuter} />
                     <div style={heroInlineStyles.photoCardInner}>
                       <Image
-                        src="/Assets/Profile/profile.jpg"
+                        src="/Assets/Profile/Profile1.jpg"
                         alt="Farhan Rasendriya"
                         fill
                         style={heroInlineStyles.photoImage}
                         priority
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
                       />
                       <div style={heroInlineStyles.photoGlow} />
                     </div>

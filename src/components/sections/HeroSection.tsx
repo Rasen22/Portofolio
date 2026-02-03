@@ -125,14 +125,15 @@ export default function HeroSection() {
               <div style={styles.photoGlowOuter} />
               {/* Card */}
               <div style={styles.photoCardInner}>
-                <Image
-                  src="/Assets/Profile/profile.jpg"
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/Assets/Profile/Profile1.jpg"
                   alt="Farhan Rasendriya"
-                  fill
-                  style={styles.photoImage}
-                  priority
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center top',
                   }}
                 />
                 {/* Gradient Overlay */}

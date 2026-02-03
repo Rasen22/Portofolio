@@ -191,6 +191,7 @@ export const heroInlineStyles = {
     position: 'absolute',
     inset: 0,
     background: 'linear-gradient(to top, rgba(10, 77, 140, 0.3), transparent, transparent)',
+    pointerEvents: 'none',
   } as CSSProperties,
 };
 
