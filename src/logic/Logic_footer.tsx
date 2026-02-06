@@ -38,7 +38,6 @@ export const socialLinks: SocialLinkItem[] = [
   { name: 'GitHub', icon: GithubIcon, url: 'https://github.com/Rasen22' },
   { name: 'LinkedIn', icon: LinkedinIcon, url: 'https://www.linkedin.com/in/farhan-rasendriya-319718352' },
   { name: 'Instagram', icon: InstagramIcon, url: 'https://www.instagram.com/farhan_rasen22/' },
-  { name: 'X', icon: XIcon, url: 'https://x.com/' },
 ];
 
 export const footerData = {

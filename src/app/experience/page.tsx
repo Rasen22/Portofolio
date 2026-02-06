@@ -489,7 +489,9 @@ export default function ExperiencePage() {
               }}>
                 A chronological look at the experiences, challenges, and triumphs that shaped who I am today.
               </p>
-              <motion.button
+              <motion.a
+                href="/Assets/CV Farhan Rasendriya.pdf"
+                download="CV Farhan Rasendriya.pdf"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -502,17 +504,21 @@ export default function ExperiencePage() {
                   fontSize: '14px',
                   fontWeight: 500,
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease',
+                  textDecoration: 'none',
                 }}
                 whileHover={{
-                  backgroundColor: 'rgba(255, 122, 48, 0.1)',
-                  scale: 1.02,
+                  backgroundColor: '#FF7A30',
+                  color: '#0a0a0a',
+                  borderColor: '#FF7A30',
+                  scale: 1.05,
+                  boxShadow: '0 0 25px rgba(255, 122, 48, 0.4)',
                 }}
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.3 }}
               >
-                <span></span>
+                <span>↓</span>
                 Download CV
-              </motion.button>
+              </motion.a>
             </motion.header>
 
             {/* Timeline */}

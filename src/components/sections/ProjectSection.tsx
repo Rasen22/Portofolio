@@ -7,6 +7,74 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { projectData, slideVariants } from '@/logic/Logic_project';
 import { projectStyles as styles } from '@/styles/Style_project';
+import { SliderNavigation } from '@/components/ui';
+
+// Modal overlay styles
+const modalStyles = {
+  overlay: {
+    position: 'fixed' as const,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backdropFilter: 'blur(12px)',
+    WebkitBackdropFilter: 'blur(12px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000,
+    padding: '24px',
+  },
+  modalContainer: {
+    maxWidth: '900px',
+    width: '100%',
+    maxHeight: '90vh',
+    overflow: 'auto',
+    borderRadius: '20px',
+    backgroundColor: '#111',
+    border: '1px solid rgba(255, 122, 48, 0.3)',
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 122, 48, 0.15)',
+  },
+  backButton: {
+    position: 'absolute' as const,
+    top: '20px',
+    left: '20px',
+    padding: '12px 24px',
+    backgroundColor: 'rgba(255, 122, 48, 0.9)',
+    backdropFilter: 'blur(8px)',
+    border: 'none',
+    borderRadius: '30px',
+    color: '#0a0a0a',
+    fontSize: '14px',
+    fontWeight: 600,
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    zIndex: 10,
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px',
+  },
+  closeButton: {
+    position: 'absolute' as const,
+    top: '20px',
+    right: '20px',
+    width: '44px',
+    height: '44px',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backdropFilter: 'blur(8px)',
+    border: '1px solid rgba(255, 255, 255, 0.2)',
+    borderRadius: '50%',
+    color: '#E9E3DF',
+    fontSize: '20px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    zIndex: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+};
 
 export default function ProjectSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -17,6 +85,25 @@ export default function ProjectSection() {
     threshold: 0.1,
     triggerOnce: true,
   });
+
+  // Close modal on escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedProject(null);
+      }
+    };
+    
+    if (selectedProject) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
+    
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedProject]);
 
   // Get visible projects (2 at a time for slider)
   const slidesCount = Math.ceil(projectData.projects.length / 2);
@@ -114,154 +201,53 @@ export default function ProjectSection() {
     : null;
 
   return (
-    <section id="project" ref={ref} style={styles.section}>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.6 }}
-        style={styles.container}
-      >
-        {/* Header */}
+    <>
+      <section id="project" ref={ref} style={styles.section}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-          style={styles.header}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.6 }}
+          style={styles.container}
         >
-          <h2 style={styles.title}>
-            {projectData.title}{' '}
-            <span style={styles.titleAccent}>{projectData.titleAccent}</span>
-          </h2>
-        </motion.div>
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
+            style={styles.header}
+          >
+            <h2 style={styles.title}>
+              {projectData.title}{' '}
+              <span style={styles.titleAccent}>{projectData.titleAccent}</span>
+            </h2>
+          </motion.div>
 
-        {/* Project Slider or Detail View */}
-        <AnimatePresence mode="wait">
-          {selectedProject && selectedProjectData ? (
-            // Detail View
-            <motion.div
-              key="detail"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              style={styles.detailCard}
+          {/* Project Slider */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {/* Slider Container */}
+            <div
+              ref={sliderRef}
+              style={styles.sliderContainer}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={() => setIsDragging(false)}
             >
-              {/* Top Image Section */}
-              <div style={styles.detailTop}>
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  style={styles.detailBackButton}
-                  className="detail-back-btn"
-                >
-                  ← Back
-                </button>
-                <div style={{ position: 'relative', width: '100%', height: '300px' }}>
-                  <Image
-                    src={selectedProjectData.image}
-                    alt={selectedProjectData.title}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                  />
-                </div>
-              </div>
-
-              {/* Detail Content */}
-              <div style={styles.detailContent} className="detail-content">
-                {/* Left Side - Description */}
-                <div style={styles.detailLeft}>
-                  <h4 style={styles.detailTitle}>{projectData.detailTitle}</h4>
-                  <p style={styles.detailDescription}>
-                    {selectedProjectData.fullDescription}
-                  </p>
-
-                  {/* Stats */}
-                  <div style={styles.detailStats}>
-                    {selectedProjectData.stats.map((stat, index) => (
-                      <div key={index} style={styles.detailStat}>
-                        <span style={styles.detailStatValue}>{stat.value}</span>
-                        <span style={styles.detailStatLabel}>{stat.label}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Buttons */}
-                  <div style={styles.detailButtons}>
-                    <Link
-                      href={`/project/${selectedProjectData.id}`}
-                      style={styles.detailBtnPrimary}
-                      className="detail-btn-primary"
-                    >
-                      {projectData.viewMoreDetail}
-                    </Link>
-                    <Link
-                      href="/project"
-                      style={styles.detailBtnSecondary}
-                      className="detail-btn-secondary"
-                    >
-                      {projectData.viewMoreProjects}
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Right Side - Tools */}
-                <div style={styles.detailRight}>
-                  <div style={styles.toolsCard}>
-                    <h4 style={styles.toolsTitle}>{projectData.toolsTitle}</h4>
-                    <div style={styles.toolsGrid}>
-                      {selectedProjectData.tools.slice(0, 5).map((tool, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: index * 0.1 }}
-                          style={styles.toolItem}
-                          className="tool-item"
-                        >
-                          <Image
-                            src={tool.icon}
-                            alt={tool.name}
-                            width={32}
-                            height={32}
-                            style={styles.toolIcon}
-                          />
-                        </motion.div>
-                      ))}
-                      {selectedProjectData.tools.length > 5 && (
-                        <div style={styles.toolMore}>...</div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ) : (
-            // Slider View
-            <motion.div
-              key="slider"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              {/* Slider Container */}
-              <div
-                ref={sliderRef}
-                style={styles.sliderContainer}
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
-                onMouseDown={handleMouseDown}
-                onMouseMove={handleMouseMove}
-                onMouseUp={handleMouseUp}
-                onMouseLeave={() => setIsDragging(false)}
-              >
-                <AnimatePresence mode="wait" custom={direction}>
-                  <motion.div
-                    key={currentSlide}
-                    custom={direction}
-                    variants={slideVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={currentSlide}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
                     transition={{ duration: 0.4, ease: 'easeInOut' }}
                     style={{
                       display: 'grid',
@@ -304,97 +290,244 @@ export default function ProjectSection() {
               </div>
 
               {/* Slider Navigation */}
-              <div style={styles.sliderNavigation}>
-                <button
-                  onClick={handlePrev}
-                  style={styles.sliderButton}
-                  className="slider-btn"
-                  aria-label="Previous slide"
+              <SliderNavigation
+                currentSlide={currentSlide}
+                totalSlides={slidesCount}
+                onPrev={handlePrev}
+                onNext={handleNext}
+                onDotClick={(index) => {
+                  setDirection(index > currentSlide ? 1 : -1);
+                  setCurrentSlide(index);
+                }}
+              />
+            </motion.div>
+
+          {/* Load More Projects Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.4, delay: 0.4 }}
+            style={styles.loadMoreWrapper}
+          >
+            <Link href="/project" style={styles.loadMoreBtn} className="load-more-btn">
+              {projectData.loadMore}
+            </Link>
+          </motion.div>
+        </motion.div>
+
+        <style jsx global>{`
+          .project-card {
+            cursor: pointer;
+          }
+          .project-card:hover {
+            border-color: rgba(255, 122, 48, 0.3) !important;
+          }
+          .slider-btn:hover {
+            background-color: #FF7A30 !important;
+            color: #0a0a0a !important;
+          }
+          .load-more-btn:hover {
+            background-color: #ff8c4a !important;
+            transform: scale(1.05);
+          }
+          .modal-back-btn:hover {
+            background-color: #ff8c4a !important;
+            transform: scale(1.05);
+          }
+          .modal-close-btn:hover {
+            background-color: rgba(255, 122, 48, 0.3) !important;
+            border-color: rgba(255, 122, 48, 0.5) !important;
+          }
+          .detail-btn-primary:hover {
+            background-color: #ff8c4a !important;
+          }
+          .detail-btn-secondary:hover {
+            border-color: #FF7A30 !important;
+            color: #FF7A30 !important;
+          }
+          .tool-item:hover {
+            background-color: rgba(255, 122, 48, 0.1) !important;
+            transform: translateY(-2px);
+          }
+          @media (max-width: 1024px) {
+            .modal-detail-content {
+              grid-template-columns: 1fr !important;
+            }
+          }
+          @media (max-width: 768px) {
+            .projects-grid {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}</style>
+      </section>
+
+      {/* Modal Popup */}
+      <AnimatePresence>
+        {selectedProject && selectedProjectData && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={modalStyles.overlay}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                setSelectedProject(null);
+              }
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 30 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              style={modalStyles.modalContainer}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Top Image Section */}
+              <div style={{ position: 'relative' }}>
+                <motion.button
+                  onClick={() => setSelectedProject(null)}
+                  style={modalStyles.backButton}
+                  className="modal-back-btn"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  ←
-                </button>
-                <div style={styles.sliderDots}>
-                  {Array.from({ length: slidesCount }).map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setDirection(index > currentSlide ? 1 : -1);
-                        setCurrentSlide(index);
-                      }}
-                      style={{
-                        ...styles.sliderDot,
-                        ...(index === currentSlide ? styles.sliderDotActive : {}),
-                      }}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
+                  ← Back
+                </motion.button>
+                <motion.button
+                  onClick={() => setSelectedProject(null)}
+                  style={modalStyles.closeButton}
+                  className="modal-close-btn"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  ✕
+                </motion.button>
+                <div style={{ position: 'relative', width: '100%', height: '300px' }}>
+                  <Image
+                    src={selectedProjectData.image}
+                    alt={selectedProjectData.title}
+                    fill
+                    style={{ objectFit: 'cover', borderRadius: '20px 20px 0 0' }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(to top, rgba(17, 17, 17, 0.8) 0%, transparent 50%)',
+                    borderRadius: '20px 20px 0 0',
+                  }} />
                 </div>
-                <button
-                  onClick={handleNext}
-                  style={styles.sliderButton}
-                  className="slider-btn"
-                  aria-label="Next slide"
+              </div>
+
+              {/* Detail Content */}
+              <div style={styles.detailContent} className="modal-detail-content">
+                {/* Left Side - Description */}
+                <div style={styles.detailLeft}>
+                  <motion.h3
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    style={{ fontSize: '28px', fontWeight: 700, color: '#E9E3DF', margin: 0, marginBottom: '8px' }}
+                  >
+                    {selectedProjectData.title}
+                  </motion.h3>
+                  <motion.span
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 }}
+                    style={{ color: '#FF7A30', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em' }}
+                  >
+                    {selectedProjectData.category}
+                  </motion.span>
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={styles.detailDescription}
+                  >
+                    {selectedProjectData.fullDescription}
+                  </motion.p>
+
+                  {/* Stats */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25 }}
+                    style={styles.detailStats}
+                  >
+                    {selectedProjectData.stats.map((stat, index) => (
+                      <div key={index} style={styles.detailStat}>
+                        <span style={styles.detailStatValue}>{stat.value}</span>
+                        <span style={styles.detailStatLabel}>{stat.label}</span>
+                      </div>
+                    ))}
+                  </motion.div>
+
+                  {/* Buttons */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    style={styles.detailButtons}
+                  >
+                    <Link
+                      href={`/project/${selectedProjectData.id}`}
+                      style={styles.detailBtnPrimary}
+                      className="detail-btn-primary"
+                    >
+                      {projectData.viewMoreDetail}
+                    </Link>
+                    <Link
+                      href="/project"
+                      style={styles.detailBtnSecondary}
+                      className="detail-btn-secondary"
+                    >
+                      {projectData.viewMoreProjects}
+                    </Link>
+                  </motion.div>
+                </div>
+
+                {/* Right Side - Tools */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                  style={styles.detailRight}
                 >
-                  →
-                </button>
+                  <div style={styles.toolsCard}>
+                    <h4 style={styles.toolsTitle}>{projectData.toolsTitle}</h4>
+                    <div style={styles.toolsGrid}>
+                      {selectedProjectData.tools.slice(0, 5).map((tool, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.3 + index * 0.1 }}
+                          style={styles.toolItem}
+                          className="tool-item"
+                        >
+                          <Image
+                            src={tool.icon}
+                            alt={tool.name}
+                            width={32}
+                            height={32}
+                            style={styles.toolIcon}
+                          />
+                        </motion.div>
+                      ))}
+                      {selectedProjectData.tools.length > 5 && (
+                        <div style={styles.toolMore}>...</div>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Load More Projects Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
-          style={styles.loadMoreWrapper}
-        >
-          <Link href="/project" style={styles.loadMoreBtn} className="load-more-btn">
-            {projectData.loadMore}
-          </Link>
-        </motion.div>
-      </motion.div>
-
-      <style jsx global>{`
-        .project-card {
-          cursor: pointer;
-        }
-        .project-card:hover {
-          border-color: rgba(255, 122, 48, 0.3) !important;
-        }
-        .slider-btn:hover {
-          background-color: #FF7A30 !important;
-          color: #0a0a0a !important;
-        }
-        .load-more-btn:hover {
-          background-color: #ff8c4a !important;
-          transform: scale(1.05);
-        }
-        .detail-back-btn:hover {
-          background-color: rgba(255, 255, 255, 0.2) !important;
-        }
-        .detail-btn-primary:hover {
-          background-color: #ff8c4a !important;
-        }
-        .detail-btn-secondary:hover {
-          border-color: #FF7A30 !important;
-          color: #FF7A30 !important;
-        }
-        .tool-item:hover {
-          background-color: rgba(255, 122, 48, 0.1) !important;
-          transform: translateY(-2px);
-        }
-        @media (max-width: 1024px) {
-          .detail-content {
-            grid-template-columns: 1fr !important;
-          }
-        }
-        @media (max-width: 768px) {
-          .projects-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
-    </section>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

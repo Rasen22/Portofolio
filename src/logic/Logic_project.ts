@@ -79,7 +79,7 @@ export const projectData = {
       category: 'UI/UX DESIGN',
       shortDescription: 'Platform digital yang dirancang di Figma untuk membangun kepercayaan calon klien melalui visual storytelling yang transparan dan autentik.',
       fullDescription: 'AWA Construction — Platform digital yang saya rancang di Figma untuk membangun kepercayaan calon klien melalui visual storytelling yang transparan dan autentik. Saya mengembangkan three-pillar experience: Trust Building dengan narasi perusahaan yang humanis, Service Clarity melalui katalog renovasi yang terstruktur dengan visualisasi alur kerja, dan Social Proof lewat galeri proyek before-after yang detail. Setiap elemen — dari masonry grid portfolio dengan overlay informasi teknis (luas bangunan, durasi, budget) hingga testimonial cards dengan foto klien nyata dan signature — dirancang untuk menjawab pertanyaan kritis calon klien sebelum mereka menghubungi tim sales.\n\nSaya memilih earthy color palette (warm neutrals dengan accent terracotta) yang merefleksikan kehangatan industri konstruksi tanpa kehilangan profesionalisme, typography sans-serif yang highly legible untuk konten teknis panjang, serta micro-interactions subtle seperti progress bar pada project timeline dan hover effects pada service cards. Seluruh desain diwujudkan dalam Figma dengan auto layout components, design tokens yang konsisten, dan interactive prototypes untuk validasi user flow sebelum development — menghasilkan platform yang tidak hanya memamerkan kualitas pekerjaan AWA Construction, tetapi juga memandu calon klien secara natural dari keingintahuan hingga keputusan bermitra.',
-      image: '/Assets/Project/project2.png',
+      image: '/Assets/Project/awa.project1.png',
       link: '/project/2',
       status: 'completed' as const,
       tools: [
@@ -91,7 +91,11 @@ export const projectData = {
         { value: '100%', label: 'SATISFACTION' },
       ],
       gallery: [
-        { src: '/Assets/Project/project2-1.png', alt: 'AwaConstruction Homepage' },
+        { src: '/Assets/Project/awa.project1.png', alt: 'AWA Construction - Proyek Detail' },
+        { src: '/Assets/Project/awa.project2.png', alt: 'AWA Construction - Who We Are' },
+        { src: '/Assets/Project/awa.project3.png', alt: 'AWA Construction - Layanan Kami' },
+        { src: '/Assets/Project/awa.project4.png', alt: 'AWA Construction - Hubungi Kami' },
+        { src: '/Assets/Project/awa.project5.png', alt: 'AWA Construction - Proyek Unggulan' },
       ],
     },
     {

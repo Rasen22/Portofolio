@@ -135,14 +135,35 @@ export default function AboutPage() {
 
                   {/* Buttons */}
                   <div style={styles.buttonGroup}>
-                    <button style={styles.btnPrimary}>
+                    <motion.a
+                      href="/Assets/CV Farhan Rasendriya.pdf"
+                      download="CV Farhan Rasendriya.pdf"
+                      style={styles.btnPrimary}
+                      whileHover={{
+                        scale: 1.05,
+                        boxShadow: '0 0 25px rgba(255, 122, 48, 0.5)',
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.3 }}
+                    >
                       <span>↓</span>
                       {aboutData.buttons.download}
-                    </button>
-                    <Link href="/#contact" style={styles.btnSecondary}>
-                      <span>✉</span>
-                      {aboutData.buttons.contact}
-                    </Link>
+                    </motion.a>
+                    <motion.div
+                      whileHover={{
+                        scale: 1.05,
+                        borderColor: '#FF7A30',
+                        color: '#FF7A30',
+                        boxShadow: '0 0 20px rgba(255, 122, 48, 0.3)',
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Link href="/contact" style={styles.btnSecondary}>
+                        <span>✉</span>
+                        {aboutData.buttons.contact}
+                      </Link>
+                    </motion.div>
                   </div>
                 </motion.div>
               </motion.div>
