@@ -2,9 +2,19 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import Image from 'next/image';
-import { skillData, sectionVariants, headerVariants, circleVariants, type SkillCategory, type SkillItem } from '@/logic/Logic_skill';
+import { skillData, sectionVariants, headerVariants, type SkillCategory, type SkillItem } from '@/logic/Logic_skill';
 import { skillInlineStyles as styles, skillGlobalCSS } from '@/styles/Style_skill';
+import LogoLoop from '@/components/ui/LogoLoop';
+import type { LogoItem } from '@/types/logoLoop';
+
+// Convert skill items to LogoLoop format
+const convertSkillsToLogos = (skills: SkillItem[]): LogoItem[] => {
+  return skills.map(skill => ({
+    src: skill.icon,
+    alt: skill.name,
+    title: skill.name,
+  }));
+};
 
 export default function SkillSection() {
   const { ref, inView } = useInView({
@@ -37,52 +47,45 @@ export default function SkillSection() {
           </p>
         </motion.div>
 
-        {/* Skills Categories */}
-        <div style={styles.skillsGrid} className="skills-grid">
+        {/* Skills Categories with LogoLoop */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '56px' }}>
           {skillData.categories.map((category: SkillCategory, catIndex: number) => (
             <motion.div
               key={catIndex}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.5, delay: catIndex * 0.2 }}
+              transition={{ duration: 0.6, delay: catIndex * 0.2, ease: 'easeOut' }}
             >
               {/* Category Title */}
-              <h3 style={styles.categoryTitle}>
+              <h3 style={{
+                color: '#E9E3DF',
+                fontSize: '14px',
+                fontWeight: 500,
+                marginBottom: '32px',
+                textAlign: 'center',
+                letterSpacing: '0.05em',
+              }}>
                 {category.title}
               </h3>
 
-              {/* Skills Grid */}
-              <div style={styles.skillsContainer}>
-                {category.skills.map((skill: SkillItem, skillIndex: number) => (
-                  <motion.div
-                    key={skillIndex}
-                    variants={circleVariants}
-                    custom={skillIndex}
-                    initial="hidden"
-                    animate={inView ? 'visible' : 'hidden'}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    style={styles.skillItem}
-                  >
-                    {/* Circle with Icon */}
-                    <div style={styles.skillCircle}>
-                      <Image
-                        src={skill.icon}
-                        alt={skill.name}
-                        width={36}
-                        height={36}
-                        style={styles.skillIcon}
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
-                    </div>
-                    {/* Label */}
-                    <span style={styles.skillLabel}>
-                      {skill.name}
-                    </span>
-                  </motion.div>
-                ))}
+              {/* LogoLoop Animation */}
+              <div style={{ 
+                height: '140px', 
+                position: 'relative', 
+                overflow: 'hidden',
+              }}>
+                <LogoLoop
+                  logos={convertSkillsToLogos(category.skills)}
+                  speed={60}
+                  direction={catIndex % 2 === 0 ? 'left' : 'right'}
+                  logoHeight={40}
+                  gap={80}
+                  hoverSpeed={0}
+                  scaleOnHover
+                  fadeOut
+                  fadeOutColor="#0a0a0a"
+                  ariaLabel={`${category.title} skills`}
+                />
               </div>
             </motion.div>
           ))}
