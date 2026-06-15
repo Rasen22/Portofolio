@@ -172,7 +172,7 @@ export const projectData = {
         { name: 'Next.js', icon: '/Assets/Icon/nextjs_icon_dark (1).png' },
         { name: 'Tailwind', icon: '/Assets/Icon/tailwindcss.png' },
         { name: 'TypeScript', icon: '/Assets/Icon/typescript.png' },
-        { name: 'GitHub', icon: '/Assets/Icon/github.png' },
+        { name: 'GitHub', icon: '/Assets/Icon/github_dark.png' },
       ],
       stats: [
         { value: '70%', label: 'CONTENT UPDATE TIME REDUCTION' },

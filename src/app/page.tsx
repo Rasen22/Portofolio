@@ -5,6 +5,7 @@ import {
   SkillSection,
   ProjectSection,
   ScrollytellingSection,
+  ContactCTASection,
 } from '@/components/sections';
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
         <ScrollytellingSection />
         <SkillSection />
         <ProjectSection />
+        <ContactCTASection />
       </main>
       <Footer />
     </>

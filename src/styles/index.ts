@@ -12,3 +12,4 @@ export { footerStyles } from './Style_footer';
 export { experienceStyles } from './Style_experience';
 export { contactPageStyles, contactPageMobileStyles } from './Style_contactPage';
 export { scrollytellingStyles, scrollytellingGlobalCSS } from './Style_scrollytelling';
+export { contactCTAStyles, contactCTAMobileStyles } from './Style_contactCTA';

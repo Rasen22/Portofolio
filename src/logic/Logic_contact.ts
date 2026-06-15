@@ -11,10 +11,10 @@ export const contactData = {
   title: "Let's Connect on",
   titleAccent: 'Sosial Media',
   socials: [
-    { name: 'GitHub', icon: 'github', url: '#' },
-    { name: 'LinkedIn', icon: 'linkedin', url: '#' },
-    { name: 'Instagram', icon: 'instagram', url: '#' },
-    { name: 'Twitter', icon: 'twitter', url: '#' },
+    { name: 'GitHub', icon: 'github', url: 'https://github.com/Rasen22' },
+    { name: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/in/farhan-rasendriya-319718352' },
+    { name: 'WhatsApp', icon: 'whatsapp', url: 'https://wa.me/6285282808785' },
+    { name: 'Email', icon: 'email', url: 'mailto:farhan@example.com' },
   ] as SocialLink[],
 };
 

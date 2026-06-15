@@ -21,7 +21,7 @@ export const skillData = {
       skills: [
         { name: 'LARAVEL', icon: '/Assets/Icon/laravel.png' },
         { name: 'PHP', icon: '/Assets/Icon/php.png' },
-        { name: 'XAMPP', icon: '/Assets/Icon/xampp.png' },
+        { name: 'XAMPP', icon: '/Assets/Icon/xampp_94513.png' },
         { name: 'TYPESCRIPT', icon: '/Assets/Icon/typescript.png' },
         { name: 'REACT.JS', icon: '/Assets/Icon/react.png' },
         { name: 'REACT QUERY', icon: '/Assets/Icon/react-query.png' },
