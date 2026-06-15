@@ -5,7 +5,7 @@ export const SITE_CONFIG = {
   title: 'UI/UX & Front-end Developer',
   description: 'UI/UX Designer dan Front-end Developer yang passionate dalam menciptakan pengalaman digital yang menarik dan fungsional.',
   url: '',
-  email: 'farhan@example.com',
+  email: 'farhanrasendriya2204@gmail.com',
 };
 
 export const NAV_ITEMS = [

@@ -8,7 +8,7 @@ import { contactCTAStyles as styles, contactCTAMobileStyles as mobileStyles } fr
 
 // ========== PNG/SVG ICONS ==========
 const WhatsappIcon = () => (
-  <img src="/Assets/Icon/whatsapp-icon.png" alt="WhatsApp" width="20" height="20" style={{ objectFit: 'contain' }} />
+  <img src="/Assets/Icon/whatsapp-icon.png" alt="WhatsApp" width="20" height="20" style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
 );
 
 const GmailIcon = () => (
@@ -155,7 +155,7 @@ export default function ContactCTASection() {
 
           {/* Send Email Button */}
           <motion.a
-            href="mailto:farhan@example.com"
+            href="mailto:farhanrasendriya2204@gmail.com"
             style={styles.emailBtn}
             className="cta-email-btn"
             whileHover={{ scale: 1.05 }}

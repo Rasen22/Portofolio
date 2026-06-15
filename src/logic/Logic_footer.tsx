@@ -36,7 +36,7 @@ export const socialLinks: SocialLinkItem[] = [
   { name: 'GitHub', icon: GithubIcon, url: 'https://github.com/Rasen22' },
   { name: 'LinkedIn', icon: LinkedinIcon, url: 'https://www.linkedin.com/in/farhan-rasendriya-319718352' },
   { name: 'WhatsApp', icon: WhatsappIcon, url: 'https://wa.me/6285282808785' },
-  { name: 'Email', icon: EmailIcon, url: 'mailto:farhan@example.com' },
+  { name: 'Email', icon: EmailIcon, url: 'mailto:farhanrasendriya2204@gmail.com' },
 ];
 
 export const footerData = {

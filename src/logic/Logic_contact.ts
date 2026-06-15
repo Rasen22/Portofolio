@@ -14,7 +14,7 @@ export const contactData = {
     { name: 'GitHub', icon: 'github', url: 'https://github.com/Rasen22' },
     { name: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/in/farhan-rasendriya-319718352' },
     { name: 'WhatsApp', icon: 'whatsapp', url: 'https://wa.me/6285282808785' },
-    { name: 'Email', icon: 'email', url: 'mailto:farhan@example.com' },
+    { name: 'Email', icon: 'email', url: 'mailto:farhanrasendriya2204@gmail.com' },
   ] as SocialLink[],
 };
 
