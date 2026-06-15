@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -23,8 +23,35 @@ export default function ScrollytellingSection() {
 
   const [isImageHovered, setIsImageHovered] = useState(false);
 
+  useEffect(() => {
+    const handleHashScroll = () => {
+      if (window.location.hash === '#about-me') {
+        const container = containerRef.current;
+        if (container) {
+          const scrollTarget = container.offsetTop + container.offsetHeight - window.innerHeight;
+          setTimeout(() => {
+            window.scrollTo({
+              top: scrollTarget,
+              behavior: 'smooth'
+            });
+          }, 150);
+        }
+      }
+    };
+
+    // Run on mount with a small delay
+    const timer = setTimeout(handleHashScroll, 400);
+
+    // Also listen to hashchange events
+    window.addEventListener('hashchange', handleHashScroll);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('hashchange', handleHashScroll);
+    };
+  }, [containerRef]);
+
   return (
-    <div ref={containerRef} style={scrollytellingStyles.scrollContainer}>
+    <div id="scrollytelling-container" ref={containerRef} style={scrollytellingStyles.scrollContainer}>
       <div ref={stickyRef} style={scrollytellingStyles.stickyView}>
         <div style={scrollytellingStyles.contentWrapper}>
           
@@ -115,9 +142,11 @@ export default function ScrollytellingSection() {
                     <div style={heroInlineStyles.statsGrid}>
                       {heroData.stats.map((stat) => (
                         <div key={stat.label} style={heroInlineStyles.statItem}>
-                          <div style={heroInlineStyles.statIcon}>
-                            <span style={heroInlineStyles.statIconText}>{stat.icon}</span>
-                          </div>
+                          {stat.icon && (
+                            <div style={heroInlineStyles.statIcon}>
+                              <span style={heroInlineStyles.statIconText}>{stat.icon}</span>
+                            </div>
+                          )}
                           <div>
                             <div style={heroInlineStyles.statValue}>{stat.value}</div>
                             <div style={heroInlineStyles.statLabel}>{stat.label}</div>

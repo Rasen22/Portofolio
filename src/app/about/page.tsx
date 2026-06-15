@@ -160,7 +160,6 @@ export default function AboutPage() {
                       transition={{ duration: 0.3 }}
                     >
                       <Link href="/contact" style={styles.btnSecondary}>
-                        <span>✉</span>
                         {aboutData.buttons.contact}
                       </Link>
                     </motion.div>

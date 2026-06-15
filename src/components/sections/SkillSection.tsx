@@ -23,7 +23,7 @@ export default function SkillSection() {
   });
 
   return (
-    <section id="about" style={styles.section}>
+    <section id="skills" style={styles.section}>
       <motion.div
         ref={ref}
         variants={sectionVariants}

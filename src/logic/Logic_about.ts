@@ -25,22 +25,18 @@ export const aboutData = {
   personalDetails: {
     title: 'Personal Details',
     location: {
-      icon: '📍',
       label: 'LOCATION',
       value: 'Jakarta Selatan, ID',
     },
     education: {
-      icon: '🎓',
       label: 'EDUCATION',
       value: 'Universitas Nasional. Information System',
     },
     languages: {
-      icon: '🌐',
       label: 'LANGUAGES',
       value: 'English',
     },
     interests: {
-      icon: '💡',
       label: 'INTERESTS',
       value: 'Calesenic, Open Source, Video Editing',
     },

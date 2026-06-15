@@ -148,6 +148,44 @@ export default function ProjectDetailPage() {
                   </div>
                 </div>
 
+                {/* Live Project Card */}
+                {project.websiteLink && (
+                  <div style={{
+                    backgroundColor: '#111',
+                    borderRadius: '16px',
+                    padding: '24px',
+                    border: '1px solid rgba(255, 122, 48, 0.3)',
+                    boxShadow: '0 4px 20px rgba(255, 122, 48, 0.05)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px',
+                  }}>
+                    <h3 style={{ ...styles.sectionTitle, marginBottom: '8px' }}>
+                      <span style={styles.sectionNumber}>03.</span> Live Project
+                    </h3>
+                    <p style={{ ...styles.description, fontSize: '13px', lineHeight: 1.5, margin: 0 }}>
+                      Proyek ini sudah online. Silakan kunjungi website interaktifnya secara langsung.
+                    </p>
+                    <a
+                      href={project.websiteLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        ...styles.ctaButton,
+                        backgroundColor: '#FF7A30',
+                        color: '#0a0a0a',
+                        justifyContent: 'center',
+                        fontWeight: 700,
+                        textAlign: 'center',
+                        transition: 'all 0.3s ease',
+                      }}
+                      className="visit-btn"
+                    >
+                      Kunjungi Website ↗
+                    </a>
+                  </div>
+                )}
+
                 {/* CTA Card */}
                 <div style={styles.ctaCard}>
                   <h4 style={styles.ctaTitle}>Let&apos;s work together</h4>
@@ -207,8 +245,13 @@ export default function ProjectDetailPage() {
           background-color: rgba(255, 122, 48, 0.1) !important;
           transform: translateY(-2px);
         }
-        .cta-btn:hover {
+         .cta-btn:hover {
           background-color: #1a1a1a !important;
+        }
+        .visit-btn:hover {
+          background-color: #ff8c4a !important;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 20px rgba(255, 122, 48, 0.4);
         }
         .gallery-item:hover {
           transform: scale(1.02);

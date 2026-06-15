@@ -3,7 +3,7 @@
 export interface HeroStat {
   value: string;
   label: string;
-  icon: string;
+  icon?: string;
 }
 
 export interface HeroButtons {

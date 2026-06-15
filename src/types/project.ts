@@ -27,6 +27,7 @@ export interface Project {
   tools: ProjectTool[];
   stats: ProjectStat[];
   gallery: ProjectGalleryImage[];
+  websiteLink?: string;
 }
 
 export interface ProjectData {

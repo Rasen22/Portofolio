@@ -12,9 +12,9 @@ export const heroData: HeroData = {
     contact: 'CONTACT ME',
   },
   stats: [
-    { value: '5+', label: 'Projects', icon: '📁' },
-    { value: '10+', label: 'Technical Skills', icon: '💻' },
-    { value: '3+', label: 'Years Experience', icon: '⚡' },
+    { value: '5+', label: 'Projects' },
+    { value: '10+', label: 'Technical Skills' },
+    { value: '3+', label: 'Years Experience' },
   ],
 };
 

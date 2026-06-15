@@ -103,40 +103,7 @@ const MilestoneCard = ({ milestone, index }: MilestoneCardProps) => {
             fontSize: '14px',
             color: 'rgba(233, 227, 223, 0.7)',
             lineHeight: 1.6,
-            marginBottom: '16px',
           }}>{milestone.description}</p>
-          
-          <div style={{
-            position: 'relative',
-            width: '100%',
-            aspectRatio: '16/9',
-            borderRadius: '8px',
-            overflow: 'hidden',
-            border: '1px solid rgba(255, 122, 48, 0.2)',
-          }}>
-            {!imageError ? (
-              <Image
-                src={milestone.image}
-                alt={milestone.imageAlt}
-                fill
-                style={{ objectFit: 'cover' }}
-                onError={() => setImageError(true)}
-              />
-            ) : (
-              <div style={{
-                width: '100%',
-                height: '100%',
-                backgroundColor: 'rgba(255, 122, 48, 0.1)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'rgba(255, 122, 48, 0.5)',
-                fontSize: '13px',
-              }}>
-                📷 {milestone.imageAlt}
-              </div>
-            )}
-          </div>
         </motion.div>
       ) : (
         <div />
@@ -253,40 +220,7 @@ const MilestoneCard = ({ milestone, index }: MilestoneCardProps) => {
             fontSize: '14px',
             color: 'rgba(233, 227, 223, 0.7)',
             lineHeight: 1.6,
-            marginBottom: '16px',
           }}>{milestone.description}</p>
-          
-          <div style={{
-            position: 'relative',
-            width: '100%',
-            aspectRatio: '16/9',
-            borderRadius: '8px',
-            overflow: 'hidden',
-            border: '1px solid rgba(255, 122, 48, 0.2)',
-          }}>
-            {!imageError ? (
-              <Image
-                src={milestone.image}
-                alt={milestone.imageAlt}
-                fill
-                style={{ objectFit: 'cover' }}
-                onError={() => setImageError(true)}
-              />
-            ) : (
-              <div style={{
-                width: '100%',
-                height: '100%',
-                backgroundColor: 'rgba(255, 122, 48, 0.1)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'rgba(255, 122, 48, 0.5)',
-                fontSize: '13px',
-              }}>
-                📷 {milestone.imageAlt}
-              </div>
-            )}
-          </div>
         </motion.div>
       ) : (
         <div />
@@ -386,40 +320,7 @@ const MobileMilestoneCard = ({ milestone, index }: MilestoneCardProps) => {
         fontSize: '13px',
         color: 'rgba(233, 227, 223, 0.7)',
         lineHeight: 1.5,
-        marginBottom: '12px',
       }}>{milestone.description}</p>
-      
-      <div style={{
-        position: 'relative',
-        width: '100%',
-        aspectRatio: '16/9',
-        borderRadius: '6px',
-        overflow: 'hidden',
-        border: '1px solid rgba(255, 122, 48, 0.2)',
-      }}>
-        {!imageError ? (
-          <Image
-            src={milestone.image}
-            alt={milestone.imageAlt}
-            fill
-            style={{ objectFit: 'cover' }}
-            onError={() => setImageError(true)}
-          />
-        ) : (
-          <div style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'rgba(255, 122, 48, 0.1)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'rgba(255, 122, 48, 0.5)',
-            fontSize: '12px',
-          }}>
-            📷 {milestone.imageAlt}
-          </div>
-        )}
-      </div>
     </motion.div>
   );
 };

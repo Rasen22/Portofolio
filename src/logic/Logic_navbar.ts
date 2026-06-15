@@ -7,9 +7,9 @@ import type { NavLink } from '@/types';
 
 export const navLinks: NavLink[] = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
+  { name: 'About', href: '/#about-me' },
   { name: 'Experience', href: '/experience' },
-  { name: 'Project', href: '/project', hasDropdown: true },
+  { name: 'Project', href: '/#project', hasDropdown: true },
   { name: 'Contact', href: '/contact' },
 ];
 
@@ -49,6 +49,7 @@ export function useNavbarLogic() {
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
   const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState('home');
 
   // GSAP Refs
   const circleRefs = useRef<Array<HTMLSpanElement | null>>([]);
@@ -58,14 +59,71 @@ export function useNavbarLogic() {
   const hamburgerRef = useRef<HTMLButtonElement | null>(null);
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
-  // Scroll handler
+  // Scroll handler to detect active section and scrolled state on homepage
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      if (pathname !== '/') {
+        setActiveSection('');
+        return;
+      }
+
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      
+      const scrollyContainer = document.getElementById('scrollytelling-container');
+      const projectSection = document.getElementById('project');
+      
+      if (!scrollyContainer) return;
+      
+      const scrollyTop = scrollyContainer.offsetTop;
+      const scrollyHeight = scrollyContainer.offsetHeight;
+      const scrollyMiddle = scrollyTop + scrollyHeight * 0.5;
+      
+      if (scrollY < scrollyMiddle - 100) {
+        setActiveSection('home');
+      } else if (scrollY < scrollyTop + scrollyHeight - 100) {
+        setActiveSection('about');
+      } else if (projectSection && scrollY >= projectSection.offsetTop - windowHeight * 0.4) {
+        setActiveSection('project');
+      } else {
+        setActiveSection('');
+      }
     };
+
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [pathname]);
+
+  // Click scroll handler for homepage hash links
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (pathname === '/') {
+      if (href.startsWith('/#')) {
+        e.preventDefault();
+        const hash = href.substring(2);
+        
+        if (hash === 'about-me') {
+          const container = document.getElementById('scrollytelling-container');
+          if (container) {
+            const scrollTarget = container.offsetTop + container.offsetHeight - window.innerHeight;
+            window.scrollTo({
+              top: scrollTarget,
+              behavior: 'smooth'
+            });
+            window.history.pushState(null, '', `/#${hash}`);
+          }
+        } else if (hash === 'project') {
+          const element = document.getElementById('project');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            window.history.pushState(null, '', `/#${hash}`);
+          }
+        }
+      }
+    }
+  }, [pathname]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -245,7 +303,16 @@ export function useNavbarLogic() {
 
   // Check if path is active
   const isActive = (href: string) => {
-    if (href === '/') return pathname === '/';
+    if (pathname === '/') {
+      if (href === '/') return activeSection === 'home';
+      if (href === '/#about-me') return activeSection === 'about';
+      if (href === '/#project') return activeSection === 'project';
+      return false;
+    }
+    // On other pages
+    if (href === '/') return false;
+    if (href === '/#about-me') return pathname === '/about';
+    if (href === '/#project') return pathname.startsWith('/project');
     return pathname.startsWith(href);
   };
 
@@ -270,5 +337,6 @@ export function useNavbarLogic() {
     handlePillLeave,
     toggleMobileMenu,
     setCircleRef,
+    handleNavClick,
   };
 }

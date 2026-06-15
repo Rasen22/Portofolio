@@ -99,9 +99,11 @@ export default function HeroSection() {
                 {heroData.stats.map((stat) => (
                   <div key={stat.label} style={styles.statItem}>
                     {/* Icon */}
-                    <div style={styles.statIcon}>
-                      <span style={styles.statIconText}>{stat.icon}</span>
-                    </div>
+                    {stat.icon && (
+                      <div style={styles.statIcon}>
+                        <span style={styles.statIconText}>{stat.icon}</span>
+                      </div>
+                    )}
                     {/* Text */}
                     <div>
                       <div style={styles.statValue}>{stat.value}</div>

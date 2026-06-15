@@ -7,7 +7,6 @@ import Footer from '@/components/layout/Footer';
 import { 
   useContactForm, 
   pageAnimations, 
-  socialIconMap,
   buttonHoverAnimation,
   buttonTapAnimation,
   SendIcon,
@@ -207,38 +206,6 @@ export default function ContactPage() {
             </form>
           </motion.div>
 
-          {/* Social Links */}
-          <motion.div 
-            style={styles.socialSection}
-            variants={pageAnimations.social}
-          >
-            <p style={styles.socialTitle}>{contactPageData.socialTitle}</p>
-            <div style={styles.socialLinks}>
-              {contactPageData.socialLinks.map((social, index) => {
-                const IconComponent = socialIconMap[social.icon];
-                return (
-                  <motion.a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={styles.socialLink}
-                    variants={pageAnimations.socialIcon}
-                    custom={index}
-                    whileHover={{
-                      scale: 1.1,
-                      borderColor: '#FF7A30',
-                      color: '#FF7A30',
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-label={social.name}
-                  >
-                    {IconComponent && <IconComponent />}
-                  </motion.a>
-                );
-              })}
-            </div>
-          </motion.div>
         </motion.div>
       </main>
 

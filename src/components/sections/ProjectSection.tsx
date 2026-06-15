@@ -345,6 +345,13 @@ export default function ProjectSection() {
             border-color: #FF7A30 !important;
             color: #FF7A30 !important;
           }
+          .detail-btn-visit:hover {
+            background-color: rgba(255, 122, 48, 0.15) !important;
+            border-color: #FF8C4A !important;
+            color: #FF8C4A !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 122, 48, 0.2);
+          }
           .tool-item:hover {
             background-color: rgba(255, 122, 48, 0.1) !important;
             transform: translateY(-2px);
@@ -403,7 +410,7 @@ export default function ProjectSection() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  ✕
+                  ×
                 </motion.button>
                 <div style={{ position: 'relative', width: '100%', height: '300px' }}>
                   <Image
@@ -479,6 +486,26 @@ export default function ProjectSection() {
                     >
                       {projectData.viewMoreDetail}
                     </Link>
+                    {selectedProjectData.websiteLink && (
+                      <a
+                        href={selectedProjectData.websiteLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          ...styles.detailBtnSecondary,
+                          borderColor: '#FF7A30',
+                          color: '#FF7A30',
+                          fontWeight: 600,
+                          transition: 'all 0.3s ease',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                        }}
+                        className="detail-btn-visit"
+                      >
+                        Kunjungi Website ↗
+                      </a>
+                    )}
                     <Link
                       href="/project"
                       style={styles.detailBtnSecondary}

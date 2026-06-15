@@ -28,6 +28,7 @@ export default function Navbar() {
     handlePillLeave,
     toggleMobileMenu,
     setCircleRef,
+    handleNavClick,
   } = useNavbarLogic();
 
   return (
@@ -57,6 +58,7 @@ export default function Navbar() {
           >
             <Link
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               style={styles.pillLink(isActive(link.href))}
             >
               {/* Hover circle that expands from bottom */}
@@ -178,7 +180,10 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              onClick={toggleMobileMenu}
+              onClick={(e) => {
+                toggleMobileMenu();
+                handleNavClick(e, link.href);
+              }}
               style={styles.mobileMenuLink(isActive(link.href))}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(26, 26, 26, 0.9)';
